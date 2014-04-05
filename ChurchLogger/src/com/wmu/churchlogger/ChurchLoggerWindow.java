@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.*;
+
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -36,11 +38,28 @@ public class ChurchLoggerWindow {
 	private JPanel card_panel, navigation_panel, money_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
 	private JTable table;
+	
+	//MySQL settings
+	private static String url = "jdbc:mysql://localhost:3306/world";
+	private static String user = "root";
+	private static String password = "";
+	private static Connection connection;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		//Initialize database connection to MySQL database
+		try{
+			//Create a connection to the database
+		   Class.forName("com.mysql.jdbc.Driver");
+		   connection = DriverManager.getConnection(url, user, password);
+		}
+		catch (Exception ex){
+		   System.out.println("ERROR, DB Connection didn't work - no trans done");
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,6 +70,13 @@ public class ChurchLoggerWindow {
 				}
 			}
 		});
+		
+		//closes MySQL connection
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -220,24 +246,12 @@ public class ChurchLoggerWindow {
 		);
 		
 		table = new JTable();
-		DefaultTableModel tableModel = new DefaultTableModel();
-		//add items to table model here
-		Object[] columnHeadings = new String[] {
-				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
-			};
-		tableModel.setColumnIdentifiers(columnHeadings);
+		
+		//update member table with data from database
+		updateMemberTable();
 		
 		//add row
-		Object[] testObject = {"sup", null, "12", null};
-		tableModel.addRow(testObject);
 		
-		Object[] testObject2 = {"sup 2", null, "13", null};
-		tableModel.addRow(testObject2);
-		
-		Object[] testObject3 = {"sup 3", null, "100", null};
-		tableModel.addRow(testObject3);
-		
-		table.setModel(tableModel);
 		
 //		table.setModel(new DefaultTableModel(
 //			new Object[][] {
@@ -392,6 +406,37 @@ public class ChurchLoggerWindow {
 		selected_label.setBackground(Color.white);
 		selected_label = new_selected_label;
 		selected_label.setBackground(new Color(230, 230, 250));
+	}
+	
+	/**
+	 * Data needs to come in order
+	 */
+	private void updateMemberTable(){
+		DefaultTableModel tableModel = new DefaultTableModel();
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		String[] recordString;
+		int i;
+		
+		
+		//add column headers
+		Object[] columnHeadings = new String[] {
+				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
+			};
+		tableModel.setColumnIdentifiers(columnHeadings);
+		
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				recordString[i] = rs.getNString(i + 1);
+			}
+			
+			tableModel.addRow(recordString);
+		}
+		
+		table.setModel(tableModel);
+		
 	}
 	
 }
