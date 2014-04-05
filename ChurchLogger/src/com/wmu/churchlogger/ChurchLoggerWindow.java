@@ -11,10 +11,7 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-<<<<<<< HEAD
 import java.sql.*;
-=======
->>>>>>> 21e5f5980d388703f257b60d7fb2a77a3defffda
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -55,7 +52,6 @@ public class ChurchLoggerWindow {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-<<<<<<< HEAD
 		
 		//Initialize database connection to MySQL database
 		try{
@@ -83,7 +79,6 @@ public class ChurchLoggerWindow {
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-=======
 		if(args[0].equals("login window") || args[0].equals("new user window")){
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -95,8 +90,8 @@ public class ChurchLoggerWindow {
 					}
 				}
 			});
->>>>>>> 21e5f5980d388703f257b60d7fb2a77a3defffda
 		}
+	}
 	}
 
 	/**
@@ -276,122 +271,10 @@ public class ChurchLoggerWindow {
 				);
 
 		table = new JTable();
-<<<<<<< HEAD
+
 		
 		//update member table with data from database
-		updateMemberTable();
-		
-		//add row
-		
-		
-//		table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"sup", null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//			},
-//			new String[] {
-//				"Name", "Member Since", "Age", "Status"
-//			}
-//		));
-=======
+		//updateMemberTable();
 
 		table.setModel(new DefaultTableModel(
 				new Integer[][] {
@@ -500,7 +383,6 @@ public class ChurchLoggerWindow {
 						"Name", "Member Since", "Age", "Status"
 				}
 				));
->>>>>>> 21e5f5980d388703f257b60d7fb2a77a3defffda
 		scrollPane.setViewportView(table);
 		member_panel.setLayout(gl_member_panel);
 
@@ -549,7 +431,7 @@ public class ChurchLoggerWindow {
 		selected_label.setBackground(new Color(230, 230, 250));
 	}
 	
-<<<<<<< HEAD
+
 	/**
 	 * Data needs to come in order
 	 */
@@ -581,13 +463,9 @@ public class ChurchLoggerWindow {
 		
 	}
 	
-=======
+
 	public void addMember() {
 		// TODO Auto-generated method stub
 		
 	}
-	
-
-
->>>>>>> 21e5f5980d388703f257b60d7fb2a77a3defffda
 }
