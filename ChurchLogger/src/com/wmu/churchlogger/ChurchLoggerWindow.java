@@ -41,12 +41,6 @@ public class ChurchLoggerWindow {
 	private JPanel card_panel, navigation_panel, money_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
 	private JTable table;
-	
-	//MySQL settings
-	private static String url = "jdbc:mysql://localhost:3306/world";
-	private static String user = "root";
-	private static String password = "";
-	private static Connection connection;
 
 	/**
 	 * Launch the application.
@@ -54,14 +48,6 @@ public class ChurchLoggerWindow {
 	public static void main(String[] args) {
 		
 		//Initialize database connection to MySQL database
-		try{
-			//Create a connection to the database
-		   Class.forName("com.mysql.jdbc.Driver");
-		   connection = DriverManager.getConnection(url, user, password);
-		}
-		catch (Exception ex){
-		   System.out.println("ERROR, DB Connection didn't work - no trans done");
-		}
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -74,11 +60,6 @@ public class ChurchLoggerWindow {
 			}
 		});
 		
-		//closes MySQL connection
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		if(args[0].equals("login window") || args[0].equals("new user window")){
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -91,8 +72,10 @@ public class ChurchLoggerWindow {
 				}
 			});
 		}
+	
+		//need to close database connection
 	}
-	}
+	
 
 	/**
 	 * Create the application.
