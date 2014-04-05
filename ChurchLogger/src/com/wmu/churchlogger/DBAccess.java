@@ -2,7 +2,12 @@ package com.wmu.churchlogger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.table.DefaultTableModel;
 
 
 public class DBAccess {
@@ -13,14 +18,14 @@ public class DBAccess {
     String userName = "pastor";
     String password = "loggingrox";
     
-    Connection conn;
+    Connection connection;
 	
 	
 	public DBAccess(){
 		try {
 			
 			Class.forName(driver).newInstance();
-			conn = DriverManager.getConnection(url+dbName,userName,password);
+			connection = DriverManager.getConnection(url+dbName,userName,password);
 
 			System.out.println("Success");
 			
@@ -31,12 +36,44 @@ public class DBAccess {
 			e.printStackTrace();
 		}finally {
 			try {
-				conn.close();
+				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			
 		}
+	}
+	
+	/**
+	 * Data needs to come in order
+	 * @throws SQLException 
+	 */
+	private void updateMemberTable(String sqlStatement) throws SQLException{
+		DefaultTableModel tableModel = new DefaultTableModel();
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery(sqlStatement);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		String[] recordString = null;
+		int i;
+		
+		
+		//add column headers
+		Object[] columnHeadings = new String[] {
+				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
+			};
+		tableModel.setColumnIdentifiers(columnHeadings);
+		
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				recordString[i] = rs.getNString(i + 1);
+			}
+			
+			tableModel.addRow(recordString);
+		}
+		
+		
+		
 	}
 	
 }
