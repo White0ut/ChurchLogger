@@ -9,10 +9,10 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -222,8 +222,8 @@ public class ChurchLoggerWindow {
 		table = new JTable();
 		
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"sup", null, null, null},
+			new Integer[][] {
+				{80, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},
