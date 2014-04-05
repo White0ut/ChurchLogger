@@ -5,6 +5,13 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -20,8 +27,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.TitledBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class NewUserWindow {
 
@@ -114,7 +119,7 @@ public class NewUserWindow {
 		
 		JCheckBox chckbxSubscribeForChurchlogger = new JCheckBox("Subscribe for ChurchLogger Newsletter");
 		
-		JCheckBox chckbxRememberUsnameAnd = new JCheckBox("Remember usname and password");
+		JCheckBox chckbxRememberUsnameAnd = new JCheckBox("Remember Username and Password");
 		
 		JCheckBox chckbxAgreeTo = new JCheckBox("Agree to terms of service");
 		
@@ -177,11 +182,7 @@ public class NewUserWindow {
 		JTextArea txtrWhatIsUp = new JTextArea();
 		txtrWhatIsUp.setFont(new Font("Dialog", Font.PLAIN, 12));
 		txtrWhatIsUp.setLineWrap(true);
-		txtrWhatIsUp.setText("Terms of service:\n\n\nBy clicking create 'Create Account', you agree to the following terms of service:\n\na;" +
-				"sjkdf;alksdjfa;lskdjf;alksdjfa;lksdjf;alskdjf;alskdfjalskdjflskdjf;alskjf" +
-				"a;sldkfja;lsdjfal;ksjdf;alksjdfl;aksjdf;laksjdf;laskdjfa;lskdjfa;lksjflka;sjdf" +
-				"lskdjfa;lsdjfa;lsdjf;alsdjf;alsdjfl;kasdjfls;kdjfal;sdhgaeubaueofbasdkjbfasjdfa;j" +
-				"sldfal;sdjf;alskdjf;lksjdf;alksdjf");
+		txtrWhatIsUp.setText(getTerms());
 		scrollPane.setViewportView(txtrWhatIsUp);
 		panel.setLayout(gl_panel);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -200,6 +201,32 @@ public class NewUserWindow {
 					.addContainerGap(37, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
+	}
+	
+	private String getTerms() {
+		BufferedReader br = null;
+		String line = "", solution = "";
+		try {
+		
+			br = new BufferedReader(new FileReader("assets/TermsOfAgreement.txt"));
+			
+			while((line = br.readLine()) != null) {
+				solution += line+"\n";
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return solution;
 	}
 	
 	public void checkAccountInfo(){

@@ -24,10 +24,12 @@ public class DBAccess {
 	public DBAccess(){
 		try {
 			
+			System.out.println("Connecting to Database...");
+			
 			Class.forName(driver).newInstance();
 			connection = DriverManager.getConnection(url+dbName,userName,password);
 
-			System.out.println("Success");
+			System.out.println("Connected...");
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
@@ -76,5 +78,7 @@ public class DBAccess {
 		return tableModel;
 		
 	}
+	
+	
 	
 }
