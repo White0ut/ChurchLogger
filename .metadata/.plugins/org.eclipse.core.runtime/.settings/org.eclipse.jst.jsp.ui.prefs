@@ -1,9 +1,0 @@
-SCRIPT_AREA_BORDER=\#D8D8D8 | null | null | null | null | null
-commentBorder=\#75715E | null | null | false | null | null
-commentText=\#75715E | null | null | false | null | null
-eclipse.preferences.version=1
-jsp_content=\#C5C8C6 | null | null | null | null | null
-tagAttributeEquals=\#C5C8C6 | null | null | null | null | null
-tagAttributeName=\#B294BB | null | null | null | null | null
-tagAttributeValue=\#B5BD68 | null | null | null | null | null
-tagBorder=\#81A2BE | null | null | null | null | null

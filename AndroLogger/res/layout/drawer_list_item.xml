@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:font="http://schemas.android.com/apk/res/edu.wmich.widget"
+    xmlns:font="http://schemas.android.com/apk/res/edu.wmich.cs"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="@drawable/list_selector" >
@@ -16,7 +16,7 @@
         android:contentDescription="@string/desc_list_item_icon"
         android:src="@drawable/ic_home" />
 
-    <edu.wmich.gete.cs.RobotoTextView
+    <edu.wmich.widget.RobotoTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -26,7 +26,7 @@
         android:paddingRight="40dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_item_title"
-        font:typeface="Roboto-Light.ttf" >
+        font:typeface="Roboto-Light.ttf" />
 
         <TextView
             android:id="@+id/counter"
@@ -37,6 +37,5 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/counter_bg"
             android:textColor="@color/counter_text_color" />
-    </edu.wmich.gete.cs.RobotoTextView>
 
 </RelativeLayout>
