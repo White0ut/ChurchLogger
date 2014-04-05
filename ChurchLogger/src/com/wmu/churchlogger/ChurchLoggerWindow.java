@@ -29,6 +29,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ChurchLoggerWindow {
 
@@ -59,6 +61,7 @@ public class ChurchLoggerWindow {
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.entryPoint
 	 */
 	public ChurchLoggerWindow() {
 		initialize();
@@ -185,6 +188,13 @@ public class ChurchLoggerWindow {
 		card_panel.add(member_panel, "member_panel");
 
 		JButton button = new JButton("Add Member");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addMember();
+			}
+
+
+		});
 		button.setFont(new Font("Dialog", Font.BOLD, 14));
 
 		JButton button_1 = new JButton("Remove Member");
@@ -381,5 +391,12 @@ public class ChurchLoggerWindow {
 		selected_label = new_selected_label;
 		selected_label.setBackground(new Color(230, 230, 250));
 	}
+	
+	public void addMember() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 
 }
