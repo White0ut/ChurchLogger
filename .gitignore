@@ -39,6 +39,7 @@ intermediate
 publish
 .idea
 .metadata
+bin
  
 # build script local files
 build/buildinfo.properties
