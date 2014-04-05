@@ -9,9 +9,11 @@ USE ChurchLogger;
 DROP TABLE IF EXISTS members, attendance, address;
 
 CREATE TABLE members (
-	mID			int	PRIMARY KEY NOT NULL AUTO_INCREMENT, # Generated ID for members
+	mID			int NOT NULL AUTO_INCREMENT, # Generated ID for members
 	fname		varchar(30) NOT NULL,
-	lname		varchar(30) NOT NULL
+	lname		varchar(30) NOT NULL,
+	cID			int NOT NULL,
+	PRIMARY KEY(mID, cID)
 );
 
 CREATE TABLE info (
@@ -19,6 +21,7 @@ CREATE TABLE info (
 	phone		varchar(17), 
 	email		varchar(50),
 	join_date	date,
+	birth_date	date,
 	note		varchar(100)	
 );
 
@@ -44,7 +47,8 @@ CREATE TABLE church_address (
 # Account information for churches. 
 CREATE TABLE church_user (
 	user 		varchar(20),
-	password	varchar(15)
+	password	varchar(15),
+	cID			int
 );
 
 CREATE TABLE attendance (
