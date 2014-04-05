@@ -1,5 +1,5 @@
 package com.wmu.churchlogger;
-
+// This is our project.
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
