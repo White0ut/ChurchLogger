@@ -48,10 +48,11 @@ public class DBAccess {
 	 * Data needs to come in order
 	 * @throws SQLException 
 	 */
-	private void updateMemberTable(String sqlStatement) throws SQLException{
+	@SuppressWarnings("null")
+	public DefaultTableModel updateMemberTable(String sql) throws SQLException{
 		DefaultTableModel tableModel = new DefaultTableModel();
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery(sqlStatement);
+		ResultSet rs = stmt.executeQuery(sql);
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
 		String[] recordString = null;
@@ -72,7 +73,7 @@ public class DBAccess {
 			tableModel.addRow(recordString);
 		}
 		
-		
+		return tableModel;
 		
 	}
 	
