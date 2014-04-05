@@ -1,8 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AndroLogger</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">ChurchLogger</string>
     <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+   
+    
+    <!-- Nav Drawer Items -->
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string name="unimplemented">Unimplemented Sorry :( Come back later</string>
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Profile</item>
+        <item>News Feed</item>
+        <item>Groups</item>
+        <item>Edit Account</item>
+    </string-array>
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_whats_hot</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="desc_drawer_icon">Item Drawer Icon</string>
 
 </resources>
