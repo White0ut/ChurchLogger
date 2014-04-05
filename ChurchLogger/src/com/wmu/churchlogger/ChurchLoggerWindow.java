@@ -11,6 +11,7 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -29,6 +30,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -45,6 +47,20 @@ public class ChurchLoggerWindow {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		//Initialize database connection to MySQL database
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ChurchLoggerWindow window = new ChurchLoggerWindow();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		if(args[0].equals("login window") || args[0].equals("new user window")){
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -57,7 +73,10 @@ public class ChurchLoggerWindow {
 				}
 			});
 		}
+	
+		//need to close database connection
 	}
+	
 
 	/**
 	 * Create the application.
@@ -237,6 +256,10 @@ public class ChurchLoggerWindow {
 
 		table = new JTable();
 
+		
+		//update member table with data from database
+		//updateMemberTable();
+
 		table.setModel(new DefaultTableModel(
 				new Integer[][] {
 						{80, null, null, null},
@@ -391,12 +414,9 @@ public class ChurchLoggerWindow {
 		selected_label = new_selected_label;
 		selected_label.setBackground(new Color(230, 230, 250));
 	}
-	
+
 	public void addMember() {
 		// TODO Auto-generated method stub
 		
 	}
-	
-
-
 }

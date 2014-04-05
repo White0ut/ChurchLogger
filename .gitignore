@@ -21,7 +21,7 @@ Thumbs.db
 nbproject
 *.sublime-project
 *.sublime-workspace
-.metadata
+.xmi
  
 # Dreamweaver added files
 _notes
@@ -38,6 +38,8 @@ dwsync.xml
 intermediate
 publish
 .idea
+.metadata
+bin
  
 # build script local files
 build/buildinfo.properties
