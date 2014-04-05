@@ -30,6 +30,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -415,6 +416,37 @@ public class ChurchLoggerWindow {
 	}
 	
 
+	/**
+	 * Data needs to come in order
+	 * @throws SQLException 
+	 */
+	private void updateMemberTable(Connection connection, String sql) throws SQLException{
+		DefaultTableModel tableModel = new DefaultTableModel();
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		String[] recordString = null;
+		int i;
+		
+		
+		//add column headers
+		Object[] columnHeadings = new String[] {
+				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
+			};
+		tableModel.setColumnIdentifiers(columnHeadings);
+		
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				recordString[i] = rs.getNString(i + 1);
+			}
+			
+			tableModel.addRow(recordString);
+		}
+		
+		table.setModel(tableModel);
+		
+	}
 
 	
 
