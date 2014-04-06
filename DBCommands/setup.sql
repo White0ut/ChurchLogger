@@ -1,5 +1,7 @@
 # This is used to initialize the pastor user for the Datase
-# login as root and source(setupUser.sql);
+# login as root and source setupUser.sql;
+
+CREATE DATABASE IF NOT EXISTS CLogger;
 
 GRANT USAGE ON *.* TO 'pastor'@127.0.0.1;
 

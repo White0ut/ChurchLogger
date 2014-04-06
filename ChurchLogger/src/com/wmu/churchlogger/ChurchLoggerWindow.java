@@ -414,9 +414,6 @@ public class ChurchLoggerWindow {
 		selected_label = new_selected_label;
 		selected_label.setBackground(new Color(230, 230, 250));
 	}
-	
-
-	
 
 	public void addMember() {
 		// TODO Auto-generated method stub
