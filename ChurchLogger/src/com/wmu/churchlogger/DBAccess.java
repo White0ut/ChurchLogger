@@ -51,10 +51,10 @@ public class DBAccess {
 	 * @throws SQLException 
 	 */
 	@SuppressWarnings("null")
-	public DefaultTableModel updateMemberTable(String sql) throws SQLException{
+	public DefaultTableModel updateMemberTable() throws SQLException{
 		DefaultTableModel tableModel = new DefaultTableModel();
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM members NATURAL JOIN info NATURAL JOIN member_address");
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
 		String[] recordString = null;
