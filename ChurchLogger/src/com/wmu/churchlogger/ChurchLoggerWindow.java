@@ -44,41 +44,6 @@ public class ChurchLoggerWindow {
 	private JTable table;
 	
 	//private static DBAccess database;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		
-		//Initialize database connection to MySQL database
-		//database = new DBAccess();
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChurchLoggerWindow window = new ChurchLoggerWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		if(args[0].equals("login window") || args[0].equals("new user window")){
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						ChurchLoggerWindow window = new ChurchLoggerWindow();
-						window.frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
-	
-		//need to close database connection
-	}
 	
 
 	/**
@@ -420,5 +385,9 @@ public class ChurchLoggerWindow {
 	public void addMember() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 }

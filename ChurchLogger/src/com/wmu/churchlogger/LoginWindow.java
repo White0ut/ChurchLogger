@@ -42,24 +42,9 @@ public class LoginWindow {
 	private JButton createAccountButton;
 	private JTextField errorField;
 	private JCheckBox chckbxRememberMe;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		if(args[0].equals("driver")){
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						LoginWindow window = new LoginWindow();
-						window.frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
-	}
+	
+	private boolean isRemembered;
+	
 
 	/**
 	 * Create the application.
@@ -132,7 +117,7 @@ public class LoginWindow {
 			}
 		});
 		loginButton.setFont(new Font("Dialog", Font.PLAIN, 12));
-
+		
 		createAccountButton = new JButton("Create Account");
 		createAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -144,8 +129,17 @@ public class LoginWindow {
 		errorField.setBorder(null);
 		errorField.setColumns(10);
 		errorField.setForeground(Color.red);
+		errorField.setEditable(false);
 		
 		chckbxRememberMe = new JCheckBox("Remember me");
+		chckbxRememberMe.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				isRemembered = isRemembered == true ? false : true;
+			}
+		});
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -200,8 +194,12 @@ public class LoginWindow {
 
 	public void launchNewUserWindow() {
 		frame.setVisible(false);
-		String[] args = {"login window"};
-		NewUserWindow.main(args);
+		frame.dispose();
+		ProgramManager.startNewUserLogin();
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 
 	public void checkForUser(){
@@ -210,8 +208,8 @@ public class LoginWindow {
 		if(username.equals("admin")){
 			if(password.equals("password")){
 				frame.setVisible(false);
-				String[] args = {"login window"};
-				ChurchLoggerWindow.main(args);
+				frame.dispose();
+				ProgramManager.startMainWindow();
 				return;
 			}
 		}

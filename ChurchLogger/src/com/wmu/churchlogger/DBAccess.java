@@ -1,14 +1,21 @@
 package com.wmu.churchlogger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -50,6 +57,15 @@ public class DBAccess {
 	}
 	
 	/**
+	 * 
+	 * @return status of execution
+	 */
+	public boolean initializeDBFromScratch() {
+		
+		return true;
+	}
+	
+	/**
 	 * Data needs to come in order
 	 * @throws SQLException 
 	 */
@@ -82,12 +98,23 @@ public class DBAccess {
 		
 	}
 	
+	private byte[] getPW(String user_name) {
+		
+		return null;
+	}
+	
 	public boolean compareUPass(String user_name, String password) {
 		MessageDigest digest;
 		try {
 		
 			digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(password.getBytes("UTF-8"));
+			digest.reset();
+			digest.update(generateSalt());
+			byte[] hashedBytes = digest.digest(password.getBytes("UTF-8"));
+			
+			if(Arrays.equals(hashedBytes, getPW(user_name))) {
+				
+			}
 
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -97,6 +124,59 @@ public class DBAccess {
 		
 		return false;
 	}
+	
+	public byte[] generateSalt() {
+        SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[20];
+        random.nextBytes(bytes);
+        return bytes;
+    }
+	
+	/**
+	 * All rights to: Omry Yadan
+	 * @param conn
+	 * @param in
+	 * @throws SQLException
+	 * @throws FileNotFoundException 
+	 */
+	public void buildDatabaseSchema() throws SQLException
+	{
+		InputStream in;
+		
+		try {
+		
+		in = new FileInputStream(new File("assets/scripts/createTablesChurchLogger.sql"));
+
+		Scanner s = new Scanner(in);
+		s.useDelimiter("(;(\r)?\n)|(--\n)");
+		Statement st = null;
+		try
+		{
+			st = connection.createStatement();
+			while (s.hasNext())
+			{
+				String line = s.next();
+				if (line.startsWith("/*!") && line.endsWith("*/"))
+				{
+					int i = line.indexOf(' ');
+					line = line.substring(i + 1, line.length() - " */".length());
+				}
+
+				if (line.trim().length() > 0)
+				{
+					st.execute(line);
+				}
+			}
+		}
+		finally {
+			if (st != null) st.close();
+		} 
+		} catch (FileNotFoundException e) {
+		System.err.println("File missing from assets/scripts");
+		e.printStackTrace();
+		}
+	}
+
 	
 	
 	

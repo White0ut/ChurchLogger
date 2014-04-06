@@ -35,23 +35,6 @@ public class NewUserWindow {
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		if(args[0].equals("login window")){
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						NewUserWindow window = new NewUserWindow();
-						window.frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
-	}
 
 	/**
 	 * Create the application.
@@ -229,9 +212,13 @@ public class NewUserWindow {
 		return solution;
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
 	public void checkAccountInfo(){
 		frame.setVisible(false);
-		String[] args = {"new user window"};
-		ChurchLoggerWindow.main(args);
+		frame.dispose();
+		ProgramManager.startMainWindow();
 	}
 }
