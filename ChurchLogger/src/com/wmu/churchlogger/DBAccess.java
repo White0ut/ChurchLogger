@@ -1,5 +1,8 @@
 package com.wmu.churchlogger;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -77,6 +80,22 @@ public class DBAccess {
 		
 		return tableModel;
 		
+	}
+	
+	public boolean compareUPass(String user_name, String password) {
+		MessageDigest digest;
+		try {
+		
+			digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(password.getBytes("UTF-8"));
+
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	
