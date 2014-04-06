@@ -6,7 +6,7 @@
 
 USE ChurchLogger;
 
-DROP TABLE IF EXISTS members, attendance, address;
+DROP TABLE IF EXISTS members, attendance, info, member_address, church, church_address, church_user;
 
 CREATE TABLE members (
 	mID			int NOT NULL AUTO_INCREMENT, # Generated ID for members
@@ -28,6 +28,7 @@ CREATE TABLE info (
 CREATE TABLE member_address (
 	mID			int PRIMARY KEY NOT NULL REFERENCES members.id,
 	straddress	varchar(50),
+	city 		varchar(30),
 	state		char(2),  		# 2 letter state
 	zip			varchar(5)		
 );
@@ -40,6 +41,7 @@ CREATE TABLE church (
 CREATE TABLE church_address (
 	cID			int PRIMARY KEY NOT NULL REFERENCES members.id,
 	straddress	varchar(50),
+	city		varchar(20),
 	state		char(2),  		# 2 letter state
 	zip			varchar(5)		
 );
@@ -48,7 +50,8 @@ CREATE TABLE church_address (
 CREATE TABLE church_user (
 	user 		varchar(20),
 	password	varchar(15),
-	cID			int
+	cID			int,
+	sub_date	date
 );
 
 CREATE TABLE attendance (

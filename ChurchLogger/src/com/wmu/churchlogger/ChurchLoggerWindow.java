@@ -42,6 +42,8 @@ public class ChurchLoggerWindow {
 	private JPanel card_panel, navigation_panel, money_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
 	private JTable table;
+	
+	//private static DBAccess database;
 
 	/**
 	 * Launch the application.
@@ -49,6 +51,7 @@ public class ChurchLoggerWindow {
 	public static void main(String[] args) {
 		
 		//Initialize database connection to MySQL database
+		//database = new DBAccess();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -257,8 +260,7 @@ public class ChurchLoggerWindow {
 		table = new JTable();
 
 		
-		//update member table with data from database
-		//updateMemberTable();
+		//NEED TO ADD CODE HERE TO UPDATE TABLE VIEW VIA DBACCESS
 
 		table.setModel(new DefaultTableModel(
 				new Integer[][] {
