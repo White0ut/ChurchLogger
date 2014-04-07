@@ -48,8 +48,16 @@ public class DBAccess {
 			e.printStackTrace();
 		}
 		finally {
+			//what is this for? -Addison
 			
-			
+		}
+		
+		//build the database!!
+		try {
+			this.buildDatabaseSchema();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
