@@ -43,7 +43,7 @@ public class ChurchLoggerWindow {
 	private CardLayout cardLayout;
 	private JTable table;
 	
-	//private static DBAccess database;
+	private static DBAccess database;
 	
 
 	/**
@@ -51,6 +51,7 @@ public class ChurchLoggerWindow {
 	 * @wbp.parser.entryPoint
 	 */
 	public ChurchLoggerWindow() {
+		database = new DBAccess();
 		initialize();
 	}
 
@@ -226,6 +227,8 @@ public class ChurchLoggerWindow {
 
 		
 		//NEED TO ADD CODE HERE TO UPDATE TABLE VIEW VIA DBACCESS
+		
+		
 
 		table.setModel(new DefaultTableModel(
 				new Integer[][] {
@@ -334,6 +337,15 @@ public class ChurchLoggerWindow {
 						"Name", "Member Since", "Age", "Status"
 				}
 				));
+		
+//---------------	THIS CODE DOES NOT WORK BUT SHOULD     -------------
+//		try {
+//			changeTableContents(database.updateMemberTable());
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
 		scrollPane.setViewportView(table);
 		member_panel.setLayout(gl_member_panel);
 
@@ -351,6 +363,10 @@ public class ChurchLoggerWindow {
 		JMenu mnHelp = new JMenu("Help    ");
 		mnHelp.setFont(new Font("Dialog", Font.BOLD, 14));
 		menuBar.add(mnHelp);
+	}
+	
+	public void changeTableContents(DefaultTableModel newTable){
+		table.setModel(newTable);
 	}
 
 	public void memberIconClicked(){

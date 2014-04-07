@@ -15,6 +15,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +30,6 @@ public class DBAccess {
     String password = "loggingrox";
     
     Connection connection;
-	
 	
 	public DBAccess(){
 		try {
@@ -46,13 +46,18 @@ public class DBAccess {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		}
+		finally {
 			
+			
+		}
+	}
+	
+	public void closeDBConnection() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -71,31 +76,35 @@ public class DBAccess {
 	 */
 	@SuppressWarnings("null")
 	public DefaultTableModel updateMemberTable() throws SQLException{
+		System.out.println("DBAccess: updateMemberTable running");
 		DefaultTableModel tableModel = new DefaultTableModel();
+		
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM members NATURAL JOIN info NATURAL JOIN member_address");
+		
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
+		
 		String[] recordString = null;
 		int i;
-		
 		
 		//add column headers
 		Object[] columnHeadings = new String[] {
 				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
-			};
+		};
+		
 		tableModel.setColumnIdentifiers(columnHeadings);
 		
 		while(rs.next()){
 			for(i = 0; i < columnCount; i++){
-				recordString[i] = rs.getNString(i + 1);
+				recordString[i] = rs.getString(i + 1);
+				System.out.println(recordString[i]);
 			}
 			
 			tableModel.addRow(recordString);
 		}
 		
 		return tableModel;
-		
 	}
 	
 	private byte[] getPW(String user_name) {
@@ -176,8 +185,4 @@ public class DBAccess {
 		e.printStackTrace();
 		}
 	}
-
-	
-	
-	
 }
