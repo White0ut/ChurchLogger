@@ -233,7 +233,6 @@ public class ChurchLoggerWindow {
 		try {
 			changeTableContents(database.updateMemberTable());
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
