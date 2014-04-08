@@ -184,6 +184,8 @@ public class DBAccess {
 					st.execute(line);
 				}
 			}
+			
+			s.close();
 		}
 		finally {
 			if (st != null) st.close();
@@ -192,5 +194,6 @@ public class DBAccess {
 		System.err.println("File missing from assets/scripts");
 		e.printStackTrace();
 		}
+		
 	}
 }
