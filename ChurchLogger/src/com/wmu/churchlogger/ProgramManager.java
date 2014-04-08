@@ -17,6 +17,8 @@ public class ProgramManager {
 		
 		startLogin();
 		
+		//should set up database connection here
+		
 	}
 	
 	private static void startLogin() {
