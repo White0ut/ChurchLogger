@@ -4,7 +4,7 @@
 # Prepared by Josh Klingler							 *
 #*****************************************************
 
-USE ChurchLogger;
+USE CLogger;
 
 DROP TABLE IF EXISTS members, attendance, info, member_address, church, church_address, church_user;
 
