@@ -253,6 +253,10 @@ public class DBAccess {
 		}
 	}
 	
+	public void removeMember(int mID, int cID){
+		//
+	}
+	
 	public void closeDBConnection() {
 		try {
 			connection.close();
