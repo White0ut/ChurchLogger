@@ -30,6 +30,8 @@ public class DBAccess {
     
     Connection connection;
 	
+	/*CONSTRUCTOR METHOD
+	=======================================================================*/
 	public DBAccess(){
 		try {
 			
@@ -55,75 +57,19 @@ public class DBAccess {
 		try {
 			this.buildDatabaseSchema();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void closeDBConnection() {
-		try {
-			connection.close();
-		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * 
 	 * @return status of execution
 	 */
 	public boolean initializeDBFromScratch() {
-		
 		return true;
 	}
 	
-	/**
-	 * Data needs to come in order
-	 * @throws SQLException 
-	 */
-	public DefaultTableModel updateMemberTable() throws SQLException{
-		System.out.println("DBAccess: updateMemberTable running");
-		DefaultTableModel tableModel = new DefaultTableModel();
-		
-		//initialize result set object
-		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT fname, lname, phone, email, join_date, straddress, zip"
-				+ " FROM members NATURAL JOIN info NATURAL JOIN member_address");
-		
-		//initialize metadata object
-		ResultSetMetaData rsmd = rs.getMetaData();
-		int columnCount = rsmd.getColumnCount();
-		
-		System.out.println("column count: " + rsmd.getColumnCount());
-		
-		String[] recordString = new String[13];
-		int i;
-		
-		//add column headers
-		Object[] columnHeadings = new String[] {
-				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
-		};
-		
-		tableModel.setColumnIdentifiers(columnHeadings);
-		
-		System.out.println("Right before parsing of result set");
-		while(rs.next()){
-			for(i = 0; i < columnCount; i++){
-				System.out.println(i);
-				try{
-				recordString[i] = rs.getString(i + 1);
-				}
-				catch(NullPointerException e){
-					recordString[i] = "Null";
-				}
-				System.out.println(recordString[i]);
-			}
-			
-			tableModel.addRow(recordString);
-		}
-		System.out.println("after parsing");
-		return tableModel;
-	}
+	/*AUTHENTICATION METHODS
+	=======================================================================*/
 	
 	private byte[] getPW(String user_name) {
 		
@@ -159,6 +105,9 @@ public class DBAccess {
         return bytes;
     }
 	
+	
+	/*DATABASE INITIALIZATION METHODS
+	=======================================================================*/
 	/**
 	 * All rights to: Omry Yadan
 	 * @param conn
@@ -219,6 +168,58 @@ public class DBAccess {
 		addMember("Josh", "MYSQLguy", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
 	}
 	
+	
+	/*PUBLIC DATABASE MANIPULATION METHODS
+	=======================================================================*/
+	/**
+	 * Creates the table model for the member list UI.
+	 * @return the table model to be used to populate a UI table.
+	 * @throws SQLException
+	 */
+	public DefaultTableModel updateMemberTable() throws SQLException{
+		System.out.println("DBAccess: updateMemberTable running");
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		//initialize result set object
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT fname, lname, phone, email, join_date, straddress, zip"
+				+ " FROM members NATURAL JOIN info NATURAL JOIN member_address");
+		
+		//initialize metadata object
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		
+		System.out.println("column count: " + rsmd.getColumnCount());
+		
+		String[] recordString = new String[13];
+		int i;
+		
+		//add column headers
+		Object[] columnHeadings = new String[] {
+				"First Name", "Last Name", "Phone", "Email", "Join Date", "Stree Address", "Zip" 
+		};
+		
+		tableModel.setColumnIdentifiers(columnHeadings);
+		
+		System.out.println("Right before parsing of result set");
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				System.out.println(i);
+				try{
+				recordString[i] = rs.getString(i + 1);
+				}
+				catch(NullPointerException e){
+					recordString[i] = "Null";
+				}
+				System.out.println(recordString[i]);
+			}
+			
+			tableModel.addRow(recordString);
+		}
+		System.out.println("after parsing");
+		return tableModel;
+	}
+	
 	/**
 	 * Adds member to database. All parameters must be passed. 
 	 * @param firstName Full first name.
@@ -249,6 +250,14 @@ public class DBAccess {
 		}
 		catch(SQLException e){
 			System.out.println("SQL Exception: " + e);
+		}
+	}
+	
+	public void closeDBConnection() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }
