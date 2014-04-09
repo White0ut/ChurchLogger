@@ -252,6 +252,26 @@ public class DBAccess {
 			System.out.println("SQL Exception: " + e);
 		}
 	}
+	/**
+	 * Removes member from database. All parameters must be passed. 
+	 * @param firstName Full first name.
+	 * @param lastName Full last name.
+	 */
+	public void removeMember(String firstName, String lastName){
+		Statement st;
+		
+		try{
+			st = connection.createStatement();
+			
+			st.execute("DELETE FROM members " +
+					   "WHERE fname = '" + firstName + 
+					   "' AND lname = '" + lastName + "';");
+		}
+		catch(SQLException e){
+			System.out.println("SQL Exception: " + e);
+		}
+	}
+	
 	
 	public void closeDBConnection() {
 		try {
