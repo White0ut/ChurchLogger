@@ -15,7 +15,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Properties;
 import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
@@ -82,7 +81,6 @@ public class DBAccess {
 	 * Data needs to come in order
 	 * @throws SQLException 
 	 */
-	@SuppressWarnings("null")
 	public DefaultTableModel updateMemberTable() throws SQLException{
 		System.out.println("DBAccess: updateMemberTable running");
 		DefaultTableModel tableModel = new DefaultTableModel();
@@ -172,12 +170,11 @@ public class DBAccess {
 		InputStream in;
 		
 		try {
-		
-		in = new FileInputStream(new File("assets/scripts/createTablesChurchLogger.sql"));
-
-		Scanner s = new Scanner(in);
-		s.useDelimiter("(;(\r)?\n)|(--\n)");
-		Statement st = null;
+			in = new FileInputStream(new File("assets/scripts/createTablesChurchLogger.sql"));
+	
+			Scanner s = new Scanner(in);
+			s.useDelimiter("(;(\r)?\n)|(--\n)");
+			Statement st = null;
 		try
 		{
 			st = connection.createStatement();
@@ -215,63 +212,43 @@ public class DBAccess {
 	 * @throws SQLException
 	 */
 	private void fillDatabase() throws SQLException {
-		Statement st = null; 
-		st = connection.createStatement();
+		System.out.println("About to add Addison.");
+		addMember("Addison", "Webb", 0, "(269) 615-5084", "addison.f.webb@gmail.com", "2014-04-08", "1991-11-28", "NA", "8380 Copper Harbor St.", "Kalamazoo", "MI", 49009);
+		addMember("Kendrick", "AWSguy", 0, "(207) 798-0903", "kendrick.cline@wmich.edu", "2014-04-08", "1992-1-1", "Cool guy", "1234 Road St.", "Kalamazoo", "MI", 49009);
+		addMember("Dillon", "Toughguy", 0, "(517) 974-3360", "dillon.burton@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "5678 Another St.", "Kalamazoo", "MI", 49009);
+		addMember("Josh", "MYSQLguy", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
+	}
+	
+	/**
+	 * Adds member to database. All parameters must be passed. 
+	 * @param firstName Full first name.
+	 * @param lastName Full last name.
+	 * @param churchID 3 digit church code.
+	 * @param phone Format: (123) 555-1234
+	 * @param email Full email address.
+	 * @param joinDate YYYY-MM-DD
+	 * @param birthDate YYYY-MM-DD
+	 * @param note Any notes about the member.
+	 * @param strAddress Full street address.
+	 * @param city Full city name.
+	 * @param state 2 character state code.
+	 * @param zip Must be 5 digit number.
+	 */
+	public void addMember(String firstName, String lastName, int churchID, String phone, String email, String joinDate, String birthDate, String note, String strAddress, String city, String state, int zip){
+		Statement st = null;
 		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Addison', 'Webb')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'test@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Ben', 'Baronie')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'test@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Derek', 'Jeter')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'test@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Mariano', 'Raveria')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'test@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Joe', 'Dirt')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'test@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Benjamin', 'Button')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'bb@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'The', 'Muffin Man')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '555-8907', 'mm@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
-		
-		st.execute("BEGIN");
-		st.execute("INSERT INTO members (cID, fname, lname) VALUES ('42', 'Charlie', 'Sheen')");
-		st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
-		st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '2696155084', 'csheen@website.com', '4/8/14', '4/8/14', 'none')");
-		st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '8380 Copper Harbor St.', 'Kalamazoo', 'MI', '49009')");
-		st.execute("COMMIT");
+		try{
+			st = connection.createStatement();
+			
+			st.execute("BEGIN");
+			st.execute("INSERT INTO members (fname, lname, cID) VALUES ('" + firstName + "', '" + lastName + "', '" + churchID + "')");
+			st.execute("SELECT LAST_INSERT_ID() INTO @lastID");
+			st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '" + phone + "', '" + email + "', '" + joinDate + "', '" + birthDate + "', '" + note + "')");
+			st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '" + strAddress + "', '" + city + "', '" + state + "', '" + zip + "')");
+			st.execute("COMMIT");
+		}
+		catch(SQLException e){
+			System.out.println("SQL Exception: " + e);
+		}
 	}
 }
