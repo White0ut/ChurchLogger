@@ -226,10 +226,7 @@ public class ChurchLoggerWindow {
 		table = new JTable();
 
 		
-		//NEED TO ADD CODE HERE TO UPDATE TABLE VIEW VIA DBACCESS
-		
-//---------------	THIS CODE DOES NOT WORK BUT SHOULD     -------------
-//code now works.. we were not building the database before trying to access tables... lol
+		// Fills member table with every member and information
 		try {
 			changeTableContents(database.updateMemberTable());
 		} catch (SQLException e1) {
