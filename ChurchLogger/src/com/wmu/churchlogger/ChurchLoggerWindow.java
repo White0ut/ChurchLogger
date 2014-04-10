@@ -283,7 +283,7 @@ public class ChurchLoggerWindow extends JFrame{
 	}
 
 	public void addMember() {
-		// TODO Auto-generated method stub
+		ProgramManager.openWindow(new AddMemberWindow(database));
 
 	}
 
