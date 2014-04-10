@@ -1,60 +1,35 @@
 package com.wmu.churchlogger;
 
 import java.awt.EventQueue;
+import java.sql.SQLException;
+
+import javax.swing.JFrame;
 
 public class ProgramManager {
-	
-	static Runnable loginWindows, mainWindow;
-	
-	public ProgramManager() {
-		
+
+	/* Entry point */
+	public static void main(String[] args) throws SQLException {
+		openWindow(new LoginWindow());
 	}
 
 	/**
-	 * @param args
+	 * openWindow opens the JFrame specified
+	 * @param window is the window you wish to open
 	 */
-	public void start() {
-		
-		startLogin();
-		
-		//should set up database connection here
-		
-	}
-	
-	private static void startLogin() {
-		
-		EventQueue.invokeLater(loginWindows = new Runnable() {
+	public static void openWindow(final JFrame window){
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-					LoginWindow window = new LoginWindow();
-					window.getFrame().setVisible(true);
+				window.setVisible(true);
 			}
 		});
 	}
-	
-	public static void startNewUserLogin() {
 
-		EventQueue.invokeLater(loginWindows = new Runnable() {
-
-			@Override
-			public void run() {
-				NewUserWindow window = new NewUserWindow();
-				window.getFrame().setVisible(true);
-			}
-		});
+	/**
+	 * closeWindow closes the JFrame specified
+	 * @param window is the window you wish to close
+	 */
+	public static void closeWindow(JFrame window){
+		window.setVisible(false);
+		window.dispose();
 	}
-	
-	public static void startMainWindow() {
-		loginWindows = null;
-		EventQueue.invokeLater(mainWindow = new Runnable() {
-
-			@Override
-			public void run() {
-				ChurchLoggerWindow window = new ChurchLoggerWindow();
-				window.getFrame().setVisible(true);
-			}
-			
-		});
-	}
-	
-	
 }

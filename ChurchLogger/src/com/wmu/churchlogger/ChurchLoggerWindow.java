@@ -5,13 +5,14 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.*;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -31,20 +32,17 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+public class ChurchLoggerWindow extends JFrame{
+	private static final long serialVersionUID = 1L;
 
-public class ChurchLoggerWindow {
-
-	private JFrame frame;
 	private JLabel member_label, notes_label, bible_label, money_label;
 	private JLabel selected_label;
 	private JPanel card_panel, navigation_panel, money_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
 	private JTable table;
-	
+
 	private static DBAccess database;
-	
+
 
 	/**
 	 * Create the application.
@@ -56,7 +54,7 @@ public class ChurchLoggerWindow {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the this.
 	 */
 	private void initialize() {
 		try {
@@ -69,17 +67,16 @@ public class ChurchLoggerWindow {
 		} catch (Exception e) {
 			// If they can't use nimbus...
 		}
-		frame = new JFrame();
-		frame.getContentPane().setBackground(SystemColor.text);
-		frame.setBounds(100, 100, 655, 505);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		this.getContentPane().setBackground(SystemColor.text);
+		this.setBounds(100, 100, 655, 505);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(new CardLayout(0, 0));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
 		program_panel = new JPanel();
 		program_panel.setBackground(SystemColor.text);
-		frame.getContentPane().add(program_panel, "name_7551650918463");
+		this.getContentPane().add(program_panel, "name_7551650918463");
 
 		navigation_panel = new JPanel();
 		navigation_panel.setMaximumSize(new Dimension(20, 32767));
@@ -225,19 +222,19 @@ public class ChurchLoggerWindow {
 
 		table = new JTable();
 
-		
+
 		// Fills member table with every member and information
 		try {
 			changeTableContents(database.updateMemberTable());
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		scrollPane.setViewportView(table);
 		member_panel.setLayout(gl_member_panel);
 
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		this.setJMenuBar(menuBar);
 
 		JMenu mnFile = new JMenu("File    ");
 		mnFile.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -251,7 +248,7 @@ public class ChurchLoggerWindow {
 		mnHelp.setFont(new Font("Dialog", Font.BOLD, 14));
 		menuBar.add(mnHelp);
 	}
-	
+
 	public void changeTableContents(DefaultTableModel newTable){
 		table.setModel(newTable);
 	}
@@ -287,10 +284,10 @@ public class ChurchLoggerWindow {
 
 	public void addMember() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public JFrame getFrame() {
-		return frame;
+		return this;
 	}
 }
