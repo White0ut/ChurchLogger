@@ -189,8 +189,6 @@ public class DBAccess {
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
 		
-		System.out.println("column count: " + rsmd.getColumnCount());
-		
 		String[] recordString = new String[13];
 		int i;
 		
@@ -201,22 +199,18 @@ public class DBAccess {
 		
 		tableModel.setColumnIdentifiers(columnHeadings);
 		
-		System.out.println("Right before parsing of result set");
 		while(rs.next()){
 			for(i = 0; i < columnCount; i++){
-				System.out.println(i);
 				try{
 				recordString[i] = rs.getString(i + 1);
 				}
 				catch(NullPointerException e){
 					recordString[i] = "Null";
 				}
-				System.out.println(recordString[i]);
 			}
 			
 			tableModel.addRow(recordString);
 		}
-		System.out.println("after parsing");
 		return tableModel;
 	}
 	

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -360,7 +361,14 @@ public class AddMemberWindow extends JFrame{
 		database.addMember(firstNameField.getText(), lastNameField.getText(), 0, phoneNumberField.getText(), 
 				emailField.getText(), JoinDateField.getText(), birthDateField.getText(), notesTextArea.getText(), 
 				addressField.getText(), cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
-
+		
+		//updates the default table model for the member list
+		try {
+			database.updateMemberTable();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		ProgramManager.closeWindow(this);
 	}
 
@@ -370,6 +378,6 @@ public class AddMemberWindow extends JFrame{
 
 	public void checkAccountInfo(){
 		ProgramManager.closeWindow(this);
-		ProgramManager.openWindow(new ChurchLoggerWindow());
+		ProgramManager.openWindow(new ChurchLoggerWindow(database));
 	}
 }

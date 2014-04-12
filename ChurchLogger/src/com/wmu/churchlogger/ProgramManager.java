@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 
 public class ProgramManager {
+	
+	//private static DBAccess database;
 
 	/* Entry point */
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException {		
 		openWindow(new LoginWindow());
 	}
 

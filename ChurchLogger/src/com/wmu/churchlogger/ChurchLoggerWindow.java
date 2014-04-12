@@ -41,15 +41,15 @@ public class ChurchLoggerWindow extends JFrame{
 	private CardLayout cardLayout;
 	private JTable table;
 
-	private static DBAccess database;
+	private DBAccess database;
 
 
 	/**
 	 * Create the application.
 	 * @wbp.parser.entryPoint
 	 */
-	public ChurchLoggerWindow() {
-		database = new DBAccess();
+	public ChurchLoggerWindow(DBAccess database) {
+		this.database = database;
 		initialize();
 	}
 
@@ -224,11 +224,7 @@ public class ChurchLoggerWindow extends JFrame{
 
 
 		// Fills member table with every member and information
-		try {
-			changeTableContents(database.updateMemberTable());
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		changeTableContents();
 
 		scrollPane.setViewportView(table);
 		member_panel.setLayout(gl_member_panel);
@@ -249,13 +245,20 @@ public class ChurchLoggerWindow extends JFrame{
 		menuBar.add(mnHelp);
 	}
 
-	public void changeTableContents(DefaultTableModel newTable){
-		table.setModel(newTable);
+	public void changeTableContents(){
+		try {
+			table.setModel(database.updateMemberTable());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void memberIconClicked(){
 		System.out.println("Member icon clicked");
 		resetLabels(member_label);
+		//update the contents of the table
+		changeTableContents();
+		//show
 		cardLayout.show(card_panel, "member_panel");
 	}
 
@@ -284,7 +287,8 @@ public class ChurchLoggerWindow extends JFrame{
 
 	public void addMember() {
 		ProgramManager.openWindow(new AddMemberWindow(database));
-
+		//need a way to make sure ^ finishes before this next code runs
+		 changeTableContents();
 	}
 
 	public JFrame getFrame() {

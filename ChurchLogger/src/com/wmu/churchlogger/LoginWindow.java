@@ -195,7 +195,7 @@ public class LoginWindow extends JFrame{
 		if(username.equals("admin")){
 			if(password.equals("password")){
 				ProgramManager.closeWindow(this);
-				ProgramManager.openWindow(new ChurchLoggerWindow());
+				ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
 				return;
 			}
 		}

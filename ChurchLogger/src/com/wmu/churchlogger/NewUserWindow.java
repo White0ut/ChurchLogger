@@ -216,6 +216,6 @@ public class NewUserWindow extends JFrame{
 
 	public void checkAccountInfo(){
 		ProgramManager.closeWindow(this);
-		ProgramManager.openWindow(new ChurchLoggerWindow());
+		ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
 	}
 }
