@@ -11,24 +11,26 @@ CREATE TABLE members (
 	fname		varchar(30) NOT NULL,
 	lname		varchar(30) NOT NULL,
 	cID			int NOT NULL,
-	PRIMARY KEY(mID, cID)
+	PRIMARY KEY(mID)
 );
 
 CREATE TABLE info (
-	mID 		int PRIMARY KEY NOT NULL REFERENCES members.id,
+	mID 		int,
 	phone		varchar(17), 
 	email		varchar(50),
 	join_date	date,
 	birth_date	date,
-	note		varchar(100)	
+	note		varchar(100),
+	PRIMARY KEY (mID) 
 );
 
 CREATE TABLE member_address (
-	mID			int PRIMARY KEY NOT NULL REFERENCES members.id,
+	mID			int,
 	straddress	varchar(50),
 	city 		varchar(30),
 	state		char(2),  		# 2 letter state
-	zip			varchar(5)		
+	zip			varchar(5),
+	PRIMARY KEY (mID) 
 );
 
 CREATE TABLE church (
