@@ -1,40 +1,29 @@
 package com.wmu.churchlogger;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.GroupLayout;
-import javax.swing.JPasswordField;
-import javax.swing.UIManager;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.BoxLayout;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JCheckBox;
 
-public class LoginWindow {
+public class LoginWindow extends JFrame{
+	private static final long serialVersionUID = 1L;
 
-	private JFrame frame;
 	private JTextField passwordField;
 	private JTextField usernameField;
 	private JLabel label;
@@ -42,9 +31,9 @@ public class LoginWindow {
 	private JButton createAccountButton;
 	private JTextField errorField;
 	private JCheckBox chckbxRememberMe;
-	
+
 	private boolean isRemembered;
-	
+
 
 	/**
 	 * Create the application.
@@ -55,7 +44,7 @@ public class LoginWindow {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the this.
 	 */
 	private void initialize() {
 
@@ -69,20 +58,19 @@ public class LoginWindow {
 		} catch (Exception e) {
 			// If they can't use nimbus...
 		}
-		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(255, 255, 255));
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		this.getContentPane().setBackground(new Color(255, 255, 255));
+		this.setBounds(100, 100, 450, 300);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBackground(new Color(0, 0, 0));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -117,7 +105,7 @@ public class LoginWindow {
 			}
 		});
 		loginButton.setFont(new Font("Dialog", Font.PLAIN, 12));
-		
+
 		createAccountButton = new JButton("Create Account");
 		createAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -130,76 +118,75 @@ public class LoginWindow {
 		errorField.setColumns(10);
 		errorField.setForeground(Color.red);
 		errorField.setEditable(false);
-		
+
 		chckbxRememberMe = new JCheckBox("Remember me");
 		chckbxRememberMe.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				isRemembered = isRemembered == true ? false : true;
 			}
 		});
-		
+
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+				gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(label, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(loginButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(createAccountButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(errorField, 173, 173, 173)
-								.addComponent(chckbxRememberMe))))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(label, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+												.addGap(18)
+												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+														.addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+														.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)))
+														.addGroup(gl_panel.createSequentialGroup()
+																.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+																		.addComponent(loginButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																		.addComponent(createAccountButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																		.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+																		.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+																				.addComponent(errorField, 173, 173, 173)
+																				.addComponent(chckbxRememberMe))))
+																				.addContainerGap())
+				);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(22)
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(17)
-							.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(errorField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(loginButton))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(createAccountButton)
-						.addComponent(chckbxRememberMe))
-					.addContainerGap())
-		);
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+										.addGap(22)
+										.addComponent(label, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_panel.createSequentialGroup()
+												.addGap(17)
+												.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+														.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+														.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+														.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+																.addComponent(errorField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(loginButton))
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+																		.addComponent(createAccountButton)
+																		.addComponent(chckbxRememberMe))
+																		.addContainerGap())
+				);
 		panel.setLayout(gl_panel);
-		frame.getContentPane().setLayout(groupLayout);
+		this.getContentPane().setLayout(groupLayout);
 	}
 
 	public void launchNewUserWindow() {
-		frame.setVisible(false);
-		frame.dispose();
-		ProgramManager.startNewUserLogin();
+		ProgramManager.closeWindow(this);
+		ProgramManager.openWindow(new NewUserWindow());
 	}
-	
+
 	public JFrame getFrame() {
-		return frame;
+		return this;
 	}
 
 	public void checkForUser(){
@@ -207,9 +194,8 @@ public class LoginWindow {
 		String password = passwordField.getText();
 		if(username.equals("admin")){
 			if(password.equals("password")){
-				frame.setVisible(false);
-				frame.dispose();
-				ProgramManager.startMainWindow();
+				ProgramManager.closeWindow(this);
+				ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
 				return;
 			}
 		}
