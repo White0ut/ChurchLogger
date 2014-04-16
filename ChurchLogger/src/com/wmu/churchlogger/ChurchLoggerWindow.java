@@ -14,7 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -27,24 +26,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
+import javax.swing.border.EmptyBorder;
+import java.awt.Rectangle;
 
 public class ChurchLoggerWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
 
-	private JLabel member_label, notes_label, bible_label, money_label;
+	private JLabel member_label, money_label, bible_label, attendance_icon;
 	private JLabel selected_label;
 	private JPanel card_panel, navigation_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
@@ -80,6 +78,7 @@ public class ChurchLoggerWindow extends JFrame{
 		} catch (Exception e) {
 			// If they can't use nimbus...
 		}
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.getContentPane().setBackground(SystemColor.text);
 		this.setBounds(100, 100, 655, 505);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,20 +95,20 @@ public class ChurchLoggerWindow extends JFrame{
 		navigation_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		navigation_panel.setBackground(new Color(245, 245, 245));
 
-		money_label = new JLabel("");
-		money_label.setHorizontalAlignment(SwingConstants.CENTER);
-		money_label.setBackground(SystemColor.text);
-		money_label.setOpaque(true);
-		money_label.addMouseListener(new MouseAdapter() {
+		attendance_icon = new JLabel("");
+		attendance_icon.setHorizontalAlignment(SwingConstants.RIGHT);
+		attendance_icon.setBackground(SystemColor.text);
+		attendance_icon.setOpaque(true);
+		attendance_icon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				moneyIconClicked();
+				attendanceIconClicked();
 			}
 		});
-		money_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/attendance.png")));
+		attendance_icon.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/attendance.png")));
 
 		bible_label = new JLabel("");
-		bible_label.setHorizontalAlignment(SwingConstants.CENTER);
+		bible_label.setHorizontalAlignment(SwingConstants.RIGHT);
 		bible_label.setBackground(SystemColor.text);
 		bible_label.setOpaque(true);
 		bible_label.addMouseListener(new MouseAdapter() {
@@ -118,25 +117,24 @@ public class ChurchLoggerWindow extends JFrame{
 				bibleIconClicked();
 			}
 		});
-		bible_label.setIcon(new ImageIcon(this.getClass().getResource("/res/bible.png")));
+		bible_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/bible.png")));
 
-		notes_label = new JLabel("");
-		notes_label.setHorizontalAlignment(SwingConstants.CENTER);
-		notes_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/money.png")));
-		notes_label.setBackground(SystemColor.text);
-		notes_label.setOpaque(true);
-		notes_label.addMouseListener(new MouseAdapter() {
+		money_label = new JLabel("");
+		money_label.setHorizontalAlignment(SwingConstants.RIGHT);
+		money_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/money.png")));
+		money_label.setBackground(SystemColor.text);
+		money_label.setOpaque(true);
+		money_label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				notesIconClicked();
+				moneyIconClicked();
 			}
 		});
 
 
 		member_label = new JLabel("");
-		member_label.setOpaque(true);
 		member_label.setBorder(null);
-		member_label.setHorizontalAlignment(SwingConstants.CENTER);
+		member_label.setHorizontalAlignment(SwingConstants.RIGHT);
 		selected_label = member_label;
 		member_label.addMouseListener(new MouseAdapter() {
 			@Override
@@ -152,9 +150,9 @@ public class ChurchLoggerWindow extends JFrame{
 				.addGroup(gl_navigation_panel.createSequentialGroup()
 					.addContainerGap(22, Short.MAX_VALUE)
 					.addGroup(gl_navigation_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+						.addComponent(attendance_icon, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
 						.addComponent(bible_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-						.addComponent(notes_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+						.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
 						.addComponent(member_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
 		);
 		gl_navigation_panel.setVerticalGroup(
@@ -163,11 +161,11 @@ public class ChurchLoggerWindow extends JFrame{
 					.addGap(66)
 					.addComponent(member_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 					.addGap(27)
-					.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(attendance_icon, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 					.addGap(27)
 					.addComponent(bible_label, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 					.addGap(31)
-					.addComponent(notes_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(75, Short.MAX_VALUE))
 		);
 		navigation_panel.setLayout(gl_navigation_panel);
@@ -178,8 +176,8 @@ public class ChurchLoggerWindow extends JFrame{
 		card_panel.setLayout(cardLayout);
 
 		member_panel = new JPanel();
-		member_panel.setBorder(new TitledBorder(null, "", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		member_panel.setBackground(Color.WHITE);
+		member_panel.setBorder(null);
+		member_panel.setBackground(new Color(119, 136, 153));
 		card_panel.add(member_panel, "member_panel");
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -283,24 +281,9 @@ public class ChurchLoggerWindow extends JFrame{
 					.addContainerGap())
 		);
 		attendance_panel.setLayout(gl_attendance_panel);
-		GroupLayout gl_program_panel = new GroupLayout(program_panel);
-		gl_program_panel.setHorizontalGroup(
-			gl_program_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_program_panel.createSequentialGroup()
-					.addComponent(navigation_panel, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(card_panel, GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
-					.addGap(19))
-		);
-		gl_program_panel.setVerticalGroup(
-			gl_program_panel.createParallelGroup(Alignment.LEADING)
-				.addComponent(navigation_panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGroup(gl_program_panel.createSequentialGroup()
-					.addGap(32)
-					.addComponent(card_panel, GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-					.addGap(28))
-		);
-		program_panel.setLayout(gl_program_panel);
+		program_panel.setLayout(new BoxLayout(program_panel, BoxLayout.X_AXIS));
+		program_panel.add(navigation_panel);
+		program_panel.add(card_panel);
 
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -327,37 +310,44 @@ public class ChurchLoggerWindow extends JFrame{
 		this.revalidate();
 	}
 
+	public String prevNoTab = "";
+	
 	public void memberIconClicked(){
 		System.out.println("Member icon clicked");
-		resetLabels(member_label);
+		resetLabels(member_label, "member.png", "members_tab.png");
 		//update the contents of the table
 		changeTableContents();
 		//show
 		cardLayout.show(card_panel, "member_panel");
 	}
 
-	public void moneyIconClicked(){
-		System.out.println("Money icon clicked");
-		resetLabels(money_label);
+	public void attendanceIconClicked(){
+		System.out.println("Attendance Icon Clicked");
+		resetLabels(attendance_icon, "attendance.png", "attendance_tab.png");
 		cardLayout.show(card_panel, "attendance_panel");
 
 	}
 
-	public void notesIconClicked(){
-		System.out.println("Notes icon clicked");
-		resetLabels(notes_label);
+	public void moneyIconClicked(){
+		System.out.println("Money icon clicked");
+		resetLabels(money_label, "money.png", "money_tab.png");
 	}
 
 	public void bibleIconClicked(){
 		System.out.println("Bible icon clicked");
-		resetLabels(bible_label);
+		resetLabels(bible_label, "bible.png", "bible_tab.png");
 	}
 
-	public void resetLabels(JLabel new_selected_label){
-		selected_label.setBorder(null);
+	public void resetLabels(JLabel new_selected_label, String noTab, String tab){
+		//selected_label.setBorder(null);
+		selected_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/" + prevNoTab)));
+		selected_label.setBackground(Color.white);
+		prevNoTab = noTab;
 		selected_label = new_selected_label;
-		
-		selected_label.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		//selected_label.setBackground(new Color(119,136,153));
+		selected_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/" + tab)));
+		//selected_label.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		//selected_label.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 	}
 
 	public void addMember() {
