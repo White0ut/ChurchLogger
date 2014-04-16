@@ -61,7 +61,6 @@ public class NewUserWindow extends JFrame{
 
 		this.getContentPane().setBackground(new Color(255, 255, 255));
 		this.setBounds(100, 100, 450, 600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
