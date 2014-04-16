@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 class CheckboxTableModel extends AbstractTableModel {
+	private static final long serialVersionUID = 1L;
+	
 	private String[] columnNames = {"First Name","Last Name","Attended"};
 	private Object[][] data = 
 		{
@@ -42,13 +44,7 @@ class CheckboxTableModel extends AbstractTableModel {
 		return getValueAt(0, c).getClass();
 	}
 
-	/*
-	 * Don't need to implement this method unless your table's
-	 * editable.
-	 */
 	public boolean isCellEditable(int row, int col) {
-		//Note that the data/cell address is constant,
-		//no matter where the cell appears onscreen.
 		if (col < 2) {
 			return false;
 		} else {
@@ -56,10 +52,6 @@ class CheckboxTableModel extends AbstractTableModel {
 		}
 	}
 
-	/*
-	 * Don't need to implement this method unless your table's
-	 * data can change.
-	 */
 	public void setValueAt(Object value, int row, int col) {
 		data[row][col] = value;
 		fireTableCellUpdated(row, col);

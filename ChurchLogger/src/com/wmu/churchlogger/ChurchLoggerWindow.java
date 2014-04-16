@@ -32,6 +32,14 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 public class ChurchLoggerWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -46,6 +54,7 @@ public class ChurchLoggerWindow extends JFrame{
 	private JPanel attendance_panel;
 	private JButton btnAddRecord;
 	private JScrollPane scrollPane_1;
+	private JButton button_1;
 
 
 	/**
@@ -85,9 +94,10 @@ public class ChurchLoggerWindow extends JFrame{
 		navigation_panel = new JPanel();
 		navigation_panel.setMaximumSize(new Dimension(20, 32767));
 		navigation_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		navigation_panel.setBackground(Color.WHITE);
+		navigation_panel.setBackground(new Color(245, 245, 245));
 
 		money_label = new JLabel("");
+		money_label.setHorizontalAlignment(SwingConstants.CENTER);
 		money_label.setBackground(SystemColor.text);
 		money_label.setOpaque(true);
 		money_label.addMouseListener(new MouseAdapter() {
@@ -96,9 +106,10 @@ public class ChurchLoggerWindow extends JFrame{
 				moneyIconClicked();
 			}
 		});
-		money_label.setIcon(new ImageIcon(this.getClass().getResource("/res/money.png")));
+		money_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/attendance.png")));
 
 		bible_label = new JLabel("");
+		bible_label.setHorizontalAlignment(SwingConstants.CENTER);
 		bible_label.setBackground(SystemColor.text);
 		bible_label.setOpaque(true);
 		bible_label.addMouseListener(new MouseAdapter() {
@@ -110,7 +121,8 @@ public class ChurchLoggerWindow extends JFrame{
 		bible_label.setIcon(new ImageIcon(this.getClass().getResource("/res/bible.png")));
 
 		notes_label = new JLabel("");
-		notes_label.setIcon(new ImageIcon(this.getClass().getResource("/res/notes.png")));
+		notes_label.setHorizontalAlignment(SwingConstants.CENTER);
+		notes_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/money.png")));
 		notes_label.setBackground(SystemColor.text);
 		notes_label.setOpaque(true);
 		notes_label.addMouseListener(new MouseAdapter() {
@@ -122,6 +134,9 @@ public class ChurchLoggerWindow extends JFrame{
 
 
 		member_label = new JLabel("");
+		member_label.setOpaque(true);
+		member_label.setBorder(null);
+		member_label.setHorizontalAlignment(SwingConstants.CENTER);
 		selected_label = member_label;
 		member_label.addMouseListener(new MouseAdapter() {
 			@Override
@@ -129,99 +144,102 @@ public class ChurchLoggerWindow extends JFrame{
 				memberIconClicked();
 			}
 		});
-		member_label.setOpaque(true);
-		member_label.setIcon(new ImageIcon(this.getClass().getResource("/res/member.png")));
-		member_label.setBorder(new EmptyBorder(1, 1, 1, 0));
+		member_label.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/member.png")));
 		member_label.setBackground(SystemColor.text);
 		GroupLayout gl_navigation_panel = new GroupLayout(navigation_panel);
 		gl_navigation_panel.setHorizontalGroup(
-				gl_navigation_panel.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 104, Short.MAX_VALUE)
+			gl_navigation_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_navigation_panel.createSequentialGroup()
-						.addContainerGap(22, Short.MAX_VALUE)
-						.addGroup(gl_navigation_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-								.addComponent(bible_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-								.addComponent(notes_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-								.addComponent(member_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
-				);
+					.addContainerGap(22, Short.MAX_VALUE)
+					.addGroup(gl_navigation_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+						.addComponent(bible_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+						.addComponent(notes_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+						.addComponent(member_label, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
+		);
 		gl_navigation_panel.setVerticalGroup(
-				gl_navigation_panel.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 411, Short.MAX_VALUE)
-				.addGroup(gl_navigation_panel.createSequentialGroup()
-						.addGap(49)
-						.addComponent(member_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-						.addGap(27)
-						.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-						.addGap(27)
-						.addComponent(bible_label, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-						.addGap(31)
-						.addComponent(notes_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				);
+			gl_navigation_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_navigation_panel.createSequentialGroup()
+					.addGap(66)
+					.addComponent(member_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addGap(27)
+					.addComponent(money_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addGap(27)
+					.addComponent(bible_label, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addGap(31)
+					.addComponent(notes_label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(75, Short.MAX_VALUE))
+		);
 		navigation_panel.setLayout(gl_navigation_panel);
-		program_panel.setLayout(new BoxLayout(program_panel, BoxLayout.X_AXIS));
-		program_panel.add(navigation_panel);
 
 		card_panel = new JPanel();
-		program_panel.add(card_panel);
 
 		cardLayout = new CardLayout(0,0);
 		card_panel.setLayout(cardLayout);
 
 		member_panel = new JPanel();
-		member_panel.setBackground(new Color(230, 230, 250));
+		member_panel.setBorder(new TitledBorder(null, "", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
+		member_panel.setBackground(Color.WHITE);
 		card_panel.add(member_panel, "member_panel");
 
-		JButton button = new JButton("Add Member");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				addMember();
-			}
-
-
-		});
-		button.setFont(new Font("Dialog", Font.BOLD, 14));
-
-		JButton button_1 = new JButton("Remove Member");
-		button_1.setFont(new Font("Dialog", Font.BOLD, 14));
-
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground(Color.BLACK);
+		scrollPane.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
+		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		scrollPane.getViewport().setBackground(Color.WHITE);
 
 		JTextArea textArea = new JTextArea();
 		textArea.setText("This is where any notes about the member will go.");
 		textArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+		
+				JButton button = new JButton("");
+				button.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/plus.png")));
+				button.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						addMember();
+					}
+
+
+				});
+				button.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/minus.png")));
+		button_1.setFont(new Font("Dialog", Font.BOLD, 14));
 		GroupLayout gl_member_panel = new GroupLayout(member_panel);
 		gl_member_panel.setHorizontalGroup(
-				gl_member_panel.createParallelGroup(Alignment.LEADING)
+			gl_member_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_member_panel.createSequentialGroup()
-						.addGap(6)
-						.addGroup(gl_member_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_member_panel.createSequentialGroup()
-										.addComponent(button, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-										.addGap(6)
-										.addComponent(button_1))
-										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-										.addGroup(gl_member_panel.createSequentialGroup()
-												.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-												.addGap(13)))
-												.addGap(6))
-				);
+					.addGap(6)
+					.addGroup(gl_member_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+						.addGroup(gl_member_panel.createSequentialGroup()
+							.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+							.addGap(13)))
+					.addGap(6))
+				.addGroup(gl_member_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(510, Short.MAX_VALUE))
+		);
 		gl_member_panel.setVerticalGroup(
-				gl_member_panel.createParallelGroup(Alignment.LEADING)
+			gl_member_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_member_panel.createSequentialGroup()
-						.addGap(6)
-						.addGroup(gl_member_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(button)
-								.addComponent(button_1))
-								.addGap(6)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-								.addGap(6)
-								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
-				);
+					.addGap(12)
+					.addGroup(gl_member_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(button)
+						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+					.addGap(6)
+					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+		);
 
 		table = new JTable();
+		table.getTableHeader().setFont(new Font("Dialog", Font.BOLD, 14));
+		table.setFont(new Font("Dialog", Font.BOLD, 12));
+		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
 
 		// Fills member table with every member and information
@@ -265,6 +283,24 @@ public class ChurchLoggerWindow extends JFrame{
 					.addContainerGap())
 		);
 		attendance_panel.setLayout(gl_attendance_panel);
+		GroupLayout gl_program_panel = new GroupLayout(program_panel);
+		gl_program_panel.setHorizontalGroup(
+			gl_program_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_program_panel.createSequentialGroup()
+					.addComponent(navigation_panel, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(card_panel, GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+					.addGap(19))
+		);
+		gl_program_panel.setVerticalGroup(
+			gl_program_panel.createParallelGroup(Alignment.LEADING)
+				.addComponent(navigation_panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_program_panel.createSequentialGroup()
+					.addGap(32)
+					.addComponent(card_panel, GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+					.addGap(28))
+		);
+		program_panel.setLayout(gl_program_panel);
 
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -318,9 +354,10 @@ public class ChurchLoggerWindow extends JFrame{
 	}
 
 	public void resetLabels(JLabel new_selected_label){
-		selected_label.setBackground(Color.white);
+		selected_label.setBorder(null);
 		selected_label = new_selected_label;
-		selected_label.setBackground(new Color(230, 230, 250));
+		
+		selected_label.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 	}
 
 	public void addMember() {

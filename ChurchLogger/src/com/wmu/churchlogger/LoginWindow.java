@@ -70,7 +70,10 @@ public class LoginWindow extends JFrame{
 		panel.setOpaque(false);
 		panel.setBackground(new Color(0, 0, 0));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
+		
+		GroupLayout groupLayout = 
+				new GroupLayout(
+						this.getContentPane());
 		groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
