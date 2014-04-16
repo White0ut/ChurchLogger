@@ -3,6 +3,7 @@ package com.wmu.churchlogger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -31,7 +32,7 @@ public class DBAccess {
     
     Connection connection;
 	
-	public DBAccess(){
+	public DBAccess() {
 		try {
 			
 			System.out.println("Connecting to Database...");
@@ -56,7 +57,8 @@ public class DBAccess {
 		try {
 			this.buildDatabaseSchema();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -142,7 +144,7 @@ public class DBAccess {
 		return false;
 	}
 	
-	public byte[] generateSalt() {
+	private byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[20];
         random.nextBytes(bytes);
@@ -150,13 +152,13 @@ public class DBAccess {
     }
 	
 	/**
-	 * All rights to: Omry Yadan
 	 * @param conn
 	 * @param in
 	 * @throws SQLException
+	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
-	public void buildDatabaseSchema() throws SQLException
+	public void buildDatabaseSchema() throws SQLException, IOException
 	{
 		InputStream in;
 		
@@ -186,6 +188,8 @@ public class DBAccess {
 			}
 			
 			s.close();
+			in.close();
+			
 		}
 		finally {
 			if (st != null) st.close();
