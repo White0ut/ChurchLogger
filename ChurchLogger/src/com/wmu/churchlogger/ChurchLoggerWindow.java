@@ -31,17 +31,21 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class ChurchLoggerWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	private JLabel member_label, notes_label, bible_label, money_label;
 	private JLabel selected_label;
-	private JPanel card_panel, navigation_panel, money_panel, member_panel, program_panel;
+	private JPanel card_panel, navigation_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
 	private JTable table;
 
 	private DBAccess database;
+	private JPanel attendance_panel;
+	private JButton btnAddRecord;
+	private JScrollPane scrollPane_1;
 
 
 	/**
@@ -165,9 +169,6 @@ public class ChurchLoggerWindow extends JFrame{
 		cardLayout = new CardLayout(0,0);
 		card_panel.setLayout(cardLayout);
 
-		money_panel = new JPanel();
-		card_panel.add(money_panel, "money_panel");
-
 		member_panel = new JPanel();
 		member_panel.setBackground(new Color(230, 230, 250));
 		card_panel.add(member_panel, "member_panel");
@@ -228,6 +229,42 @@ public class ChurchLoggerWindow extends JFrame{
 
 		scrollPane.setViewportView(table);
 		member_panel.setLayout(gl_member_panel);
+		
+		attendance_panel = new JPanel();
+		attendance_panel.setBackground(new Color(230, 230, 250));
+		card_panel.add(attendance_panel, "attendance_panel");
+		
+		btnAddRecord = new JButton("Add Record");
+		btnAddRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Add a new date
+				addDate();
+			}
+		});
+		btnAddRecord.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBackground(Color.BLACK);
+		GroupLayout gl_attendance_panel = new GroupLayout(attendance_panel);
+		gl_attendance_panel.setHorizontalGroup(
+			gl_attendance_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_attendance_panel.createSequentialGroup()
+					.addGap(6)
+					.addGroup(gl_attendance_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+						.addComponent(btnAddRecord, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		gl_attendance_panel.setVerticalGroup(
+			gl_attendance_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_attendance_panel.createSequentialGroup()
+					.addGap(6)
+					.addComponent(btnAddRecord)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		attendance_panel.setLayout(gl_attendance_panel);
 
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -251,6 +288,7 @@ public class ChurchLoggerWindow extends JFrame{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		this.revalidate();
 	}
 
 	public void memberIconClicked(){
@@ -265,7 +303,7 @@ public class ChurchLoggerWindow extends JFrame{
 	public void moneyIconClicked(){
 		System.out.println("Money icon clicked");
 		resetLabels(money_label);
-		cardLayout.show(card_panel, "money_panel");
+		cardLayout.show(card_panel, "attendance_panel");
 
 	}
 
@@ -288,7 +326,11 @@ public class ChurchLoggerWindow extends JFrame{
 	public void addMember() {
 		ProgramManager.openWindow(new AddMemberWindow(database));
 		//need a way to make sure ^ finishes before this next code runs
-		 changeTableContents();
+		changeTableContents();
+	}
+	
+	public void addDate(){
+		ProgramManager.openWindow(new AddDateWindow(database));
 	}
 
 	public JFrame getFrame() {
