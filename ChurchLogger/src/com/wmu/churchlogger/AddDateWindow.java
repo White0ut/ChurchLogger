@@ -85,13 +85,20 @@ public class AddDateWindow extends JFrame{
 		
 		JLabel lblDate = new JLabel("Date:");
 		
-		JButton btnNewButton = new JButton("Cancel");
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Add a new table for attendance
+				ProgramManager.closeWindow(getFrame());
+			}
+		});
 		
 		JButton btnOk = new JButton("Add");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Add a new table for attendance
-				ProgramManager.openWindow(new AttendanceTableWindow(database, "4/13/2014")); // TODO : add window
+				ProgramManager.openWindow(new AttendanceTableWindow(database, notesTextArea.getText())); // TODO : add window
+				ProgramManager.closeWindow(getFrame());
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -109,7 +116,7 @@ public class AddDateWindow extends JFrame{
 							.addComponent(lastNameField, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+							.addComponent(btnCancel, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
 							.addGap(18))
@@ -128,7 +135,7 @@ public class AddDateWindow extends JFrame{
 						.addComponent(lastNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(35)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
+						.addComponent(btnCancel)
 						.addComponent(btnOk))
 					.addGap(109)
 					.addComponent(notesTextArea, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
