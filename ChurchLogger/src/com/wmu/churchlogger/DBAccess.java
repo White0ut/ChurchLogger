@@ -185,7 +185,6 @@ public class DBAccess {
 	 * @throws SQLException
 	 */
 	public DefaultTableModel updateMemberTable() throws SQLException{
-		System.out.println("DBAccess: updateMemberTable running");
 		DefaultTableModel tableModel = new DefaultTableModel();
 		
 		//initialize result set object
@@ -223,14 +222,53 @@ public class DBAccess {
 	}
 	
 	/**
+	 * Creates the table model for the attendance list in the attendance tab.
+	 * @return tableModel the model that has the list of attendance dates.
+	 * @throws SQLException 
+	 */
+	public DefaultTableModel updateAttendanceTable() throws SQLException{
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		//insert update code here
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT DISTINCT date FROM attendance");//SQL query for list of Attendance dates, needs to query for dates in Attendance and remove duplicates
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		
+		String[] recordString = new String[1];
+		int i;
+		
+		Object[] columnHeadings = new String[]{
+				"Date"
+		};
+		
+		tableModel.setColumnIdentifiers(columnHeadings);
+		
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				try{
+				recordString[i] = rs.getString(i + 1);
+				}
+				catch(NullPointerException e){
+					recordString[i] = "Null";
+				}
+			}
+			
+			tableModel.addRow(recordString);
+		}
+		return tableModel;
+	}
+	
+	/**
 	 * Adds member to database. All parameters must be passed. 
 	 * @param firstName Full first name.
 	 * @param lastName Full last name.
 	 * @param churchID 3 digit church code.
 	 * @param phone Format: (123) 555-1234
 	 * @param email Full email address.
-	 * @param joinDate YYYY-MM-DD
-	 * @param birthDate YYYY-MM-DD
+	 * @param joinDate MM/DD/YYYY
+	 * @param birthDate MM/DD/YYYY
 	 * @param note Any notes about the member.
 	 * @param strAddress Full street address.
 	 * @param city Full city name.
@@ -249,6 +287,7 @@ public class DBAccess {
 			st.execute("INSERT INTO info (mID, phone, email, join_date, birth_date, note) VALUES (@lastID, '" + phone + "', '" + email + "', '" + joinDate + "', '" + birthDate + "', '" + note + "')");
 			st.execute("INSERT INTO member_address (mID, straddress, city, state, zip) VALUES (@lastID, '" + strAddress + "', '" + city + "', '" + state + "', '" + zip + "')");
 			st.execute("COMMIT");
+			st.close();
 		}
 		catch(SQLException e){
 			System.out.println("SQL Exception: " + e);
@@ -268,15 +307,36 @@ public class DBAccess {
 			st.execute("DELETE FROM members " +
 					   "WHERE fname = '" + firstName + 
 					   "' AND lname = '" + lastName + "';");
+			st.close();
 		}
 		catch(SQLException e){
 			System.out.println("SQL Exception: " + e);
 		}
 	}
 	
-	
+	// shouldn't need this
 	public void removeMember(int mID, int cID){
 		//
+	}
+	
+	/**
+	 * Marks the member present for the service date passed.
+	 *
+	 * @param mID Member ID for the church member.
+	 * @param date Date of the church service attended. Date format MM/DD/YYYY
+	 */
+	public void addAttendanceForMember(int mID, String date){
+		Statement st;
+		
+		try{
+			st = connection.createStatement();
+			
+			st.execute("INSERT INTO attendance (mID, date, cID) VALUES (" + mID + ", " + date + ", 0)");
+			st.close();
+		}
+		catch(SQLException e){
+			System.out.println("SQL Exception: " + e);
+		}
 	}
 	
 	public void closeDBConnection() {

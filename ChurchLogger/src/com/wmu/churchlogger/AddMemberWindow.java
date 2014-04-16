@@ -356,7 +356,7 @@ public class AddMemberWindow extends JFrame{
 		this.getContentPane().setLayout(groupLayout);
 	}
 
-	//------------------------------------- ADDMEMBERTODATA ---------------------------------------------
+
 	public void addMemberToData(){
 		String joinDate  = ProgramManager.reformatDate(JoinDateField.getText());
 		String birthDate = ProgramManager.reformatDate(birthDateField.getText());

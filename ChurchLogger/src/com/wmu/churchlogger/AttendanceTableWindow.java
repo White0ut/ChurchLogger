@@ -36,12 +36,14 @@ public class AttendanceTableWindow extends JFrame{
 	private DBAccess database;
 	private JTable table;
 	private CheckboxTableModel model;
+	private String date;
 
 	/**
 	 * Create the application.
 	 */
-	public AttendanceTableWindow(DBAccess database) {
+	public AttendanceTableWindow(DBAccess database, String date) {
 		this.database = database;
+		this.date = date;
 		initialize();
 	}
 
@@ -106,9 +108,14 @@ public class AttendanceTableWindow extends JFrame{
 		getContentPane().setLayout(groupLayout);
 	}
 
+	/**
+	 * Called when user presses "Finish Adding"
+	 * Will call method to add attendance data to the attendance table
+	 */
 	public void finishedAdding(){
 		for(String s : model.getSelectedNames())
 			System.out.println(s);
+		
 	}
 
 	public JFrame getFrame() {
