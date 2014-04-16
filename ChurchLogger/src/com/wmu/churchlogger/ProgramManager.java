@@ -10,11 +10,7 @@ public class ProgramManager {
 	//private static DBAccess database;
 
 	/* Entry point */
-	public static void main(String[] args) throws SQLException {
-		//============== TEST PHONE NUMBER FIXER ===============
-		System.out.println("Date fixer: " + reformatDate("11-29-1993"));
-		//======================================================
-		
+	public static void main(String[] args) throws SQLException {		
 		openWindow(new LoginWindow());
 	}
 
@@ -40,15 +36,16 @@ public class ProgramManager {
 	}
 	
 	/**
-	 * SwapDate takes in a date in mm/dd/yyyy format and switches it to
-	 * 		yyyy-mm-dd.
+	 * reformatDate takes in a date in mm-dd-yyyy format and switches it to
+	 * yyyy-mm-dd in order for it to be entered into a MySQL command.
 	 * 
-	 * DIVIDER MUST BE '-' OR THIS WON'T WORK 
+	 * DIVIDER MUST BE '-' OR THIS WON'T WORK.
+	 * 
+	 * @param oldDate The date with a normal format of mm-dd-yyyy or mm/dd/yyyy
 	 */
 	public static String reformatDate(String oldDate){
-		String newDate = "";
 		
-		String[] dateArray = oldDate.split("-");
+		String[] dateArray = oldDate.split("(-)|(/)");
 		String month = dateArray[0];
 		String day   = dateArray[1];
 		String year  = dateArray[2];

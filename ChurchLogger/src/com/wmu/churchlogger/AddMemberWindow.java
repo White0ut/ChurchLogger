@@ -358,21 +358,11 @@ public class AddMemberWindow extends JFrame{
 
 	//------------------------------------- ADDMEMBERTODATA ---------------------------------------------
 	public void addMemberToData(){
-		
-		
-		// This is the code that will be needed when we pass the ProgramManager object to this class. -Josh
-		//-------------------------------------------------------------------------------------------------- 
-		//String joinDate  = ProgramManagerObject.reformatDate(JoinDateField.getText());
-		//String birthDate = ProgramManagerObject.reformatDate(birthDateField.getText());
-		
-		//database.addMember(firstNameField.getText(), lastNameField.getText(), 0, phoneNumberField.getText(), 
-				//emailField.getText(), joinDate, birthDate, notesTextArea.getText(), 
-				//addressField.getText(), cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
-		//-------------------------------------------------------------------------------------------------- 
-
+		String joinDate  = ProgramManager.reformatDate(JoinDateField.getText());
+		String birthDate = ProgramManager.reformatDate(birthDateField.getText());
 		
 		database.addMember(firstNameField.getText(), lastNameField.getText(), 0, phoneNumberField.getText(), 
-				emailField.getText(), JoinDateField.getText(), birthDateField.getText(), notesTextArea.getText(), 
+				emailField.getText(), joinDate, birthDate, notesTextArea.getText(), 
 				addressField.getText(), cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
 		
 		//updates the default table model for the member list
