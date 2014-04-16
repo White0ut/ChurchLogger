@@ -356,8 +356,21 @@ public class AddMemberWindow extends JFrame{
 		this.getContentPane().setLayout(groupLayout);
 	}
 
+	//------------------------------------- ADDMEMBERTODATA ---------------------------------------------
 	public void addMemberToData(){
-		// Date must be yyyy-MM-dd
+		
+		
+		// This is the code that will be needed when we pass the ProgramManager object to this class. -Josh
+		//-------------------------------------------------------------------------------------------------- 
+		//String joinDate  = ProgramManagerObject.reformatDate(JoinDateField.getText());
+		//String birthDate = ProgramManagerObject.reformatDate(birthDateField.getText());
+		
+		//database.addMember(firstNameField.getText(), lastNameField.getText(), 0, phoneNumberField.getText(), 
+				//emailField.getText(), joinDate, birthDate, notesTextArea.getText(), 
+				//addressField.getText(), cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
+		//-------------------------------------------------------------------------------------------------- 
+
+		
 		database.addMember(firstNameField.getText(), lastNameField.getText(), 0, phoneNumberField.getText(), 
 				emailField.getText(), JoinDateField.getText(), birthDateField.getText(), notesTextArea.getText(), 
 				addressField.getText(), cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
@@ -371,6 +384,7 @@ public class AddMemberWindow extends JFrame{
 		
 		ProgramManager.closeWindow(this);
 	}
+	
 
 	public JFrame getFrame() {
 		return this;
