@@ -93,7 +93,7 @@ public class ChurchLoggerWindow extends JFrame{
 		navigation_panel = new JPanel();
 		navigation_panel.setMaximumSize(new Dimension(20, 32767));
 		navigation_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		navigation_panel.setBackground(new Color(245, 245, 245));
+		navigation_panel.setBackground(new Color(255, 255, 255));
 
 		attendance_icon = new JLabel("");
 		attendance_icon.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -247,7 +247,7 @@ public class ChurchLoggerWindow extends JFrame{
 		member_panel.setLayout(gl_member_panel);
 		
 		attendance_panel = new JPanel();
-		attendance_panel.setBackground(new Color(230, 230, 250));
+		attendance_panel.setBackground(new Color(119, 136, 153));
 		card_panel.add(attendance_panel, "attendance_panel");
 		
 		btnAddRecord = new JButton("Add Record");
