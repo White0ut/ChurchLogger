@@ -91,7 +91,7 @@ public class AddDateWindow extends JFrame{
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Add a new table for attendance
-				ProgramManager.openWindow(new AttendanceTableWindow(database)); // TODO : add window
+				ProgramManager.openWindow(new AttendanceTableWindow(database, "4/13/2014")); // TODO : add window
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
