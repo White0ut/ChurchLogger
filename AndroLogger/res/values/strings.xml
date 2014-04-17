@@ -10,23 +10,16 @@
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
     <string name="unimplemented">Unimplemented Sorry :( Come back later</string>
-    <string-array name="nav_drawer_items">
-        <item>Home</item>
-        <item>Profile</item>
-        <item>News Feed</item>
-        <item>Groups</item>
-        <item>Edit Account</item>
-    </string-array>
-    <array name="nav_drawer_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_people</item>
-        <item>@drawable/ic_pages</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/ic_whats_hot</item>
-    </array>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="desc_drawer_icon">Item Drawer Icon</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="name_input_hint">Press for Input</string>
+    <string name="commune_checkbox">Communioned</string>
+    <string name="finish_button">Finish</string>
 
+    <!--  FOOTER VIEW -->
+    <string name="reload_item_string">Reload Messages</string>
 </resources>
