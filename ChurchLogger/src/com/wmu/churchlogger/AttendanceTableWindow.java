@@ -113,8 +113,11 @@ public class AttendanceTableWindow extends JFrame{
 	 * Will call method to add attendance data to the attendance table
 	 */
 	public void finishedAdding(){
-		for(String s : model.getSelectedNames())
+		for(Integer s : model.getSelected()){
 			System.out.println(s);
+			database.addAttendanceForMember(s, date);
+		}
+			
 			ProgramManager.closeWindow(getFrame());
 	}
 
