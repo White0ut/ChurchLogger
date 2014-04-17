@@ -63,3 +63,8 @@ CREATE TABLE attendance (
 	cID				int,
 	PRIMARY KEY (mID, service_date, cID)
 );
+
+CREATE TABLE church_message (
+	cID				int,
+	message 		varchar(140)
+);
