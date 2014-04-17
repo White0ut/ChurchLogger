@@ -26,8 +26,8 @@ class CheckboxTableModel extends AbstractTableModel {
 	public List<String> getSelectedNames(){
 		List<String> names = new ArrayList<String>();
 		for(int i = 0; i < data.length; i++){
-			if((Boolean)data[2][i] == true){
-				names.add(data[0][i] + " " + data[1][i]);
+			if((Boolean)data[i][2] == true){
+				names.add(data[i][0] + " " + data[i][1]);
 			}
 		}return names;
 	}
