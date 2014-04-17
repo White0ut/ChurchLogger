@@ -86,6 +86,7 @@ public class AttendFrag extends Fragment {
 						+ "'), '"
 						+ tempDate + "', '0')";
 				st.execute(executeString);
+				
 				st.close();
 			} catch (Exception e) {
 				e.printStackTrace();

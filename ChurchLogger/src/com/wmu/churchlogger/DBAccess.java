@@ -61,10 +61,10 @@ public class DBAccess {
 		}
 
 		// build the database!!
-		/*
-		 * try { this.buildDatabaseSchema(); } catch (SQLException e) {
-		 * e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); }
-		 */
+		
+		  try { this.buildDatabaseSchema(); } catch (SQLException e) {
+		  e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); }
+		 
 	}
 
 	/**
@@ -107,12 +107,9 @@ public class DBAccess {
 			digest = MessageDigest.getInstance("SHA-256");
 			byte[] hashedBytes = digest.digest(password.getBytes("UTF-8"));
 
-			if (hashedBytes.toString().equals(getPW(user_name))) {
-				System.out.println("Equal!");
+			if (hashedBytes.equals(getPW(user_name))) {
 				return true;
 			} else {
-				System.out.println("Not equal");
-				System.out.println(hashedBytes.toString()+"\n"+getPW(user_name));
 				return false;
 			}
 		} catch (NoSuchAlgorithmException e) {
@@ -339,9 +336,22 @@ public class DBAccess {
 				}
 			}
 			phone[count] = phoneString;
-			add[count] = "nothing now";
 			count++;
 		}
+		
+		try {
+			input = new Scanner(new FileReader("adds.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		count = 0;
+		while (count < amount) {
+			String[] ad = input.nextLine().split(", ");
+			add[count] = ad[0];
+			count++;
+		}
+
+		input.close();
 
 		count = 0;
 		while (count < amount) {
@@ -351,7 +361,6 @@ public class DBAccess {
 					Integer.parseInt(zipcodes[count]));
 			count++;
 		}
-
 	}
 
 	/*
