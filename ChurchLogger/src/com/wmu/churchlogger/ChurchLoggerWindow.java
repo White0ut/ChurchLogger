@@ -372,6 +372,7 @@ public class ChurchLoggerWindow extends JFrame{
 	public void changeTableContents(){
 		try {
 			table.setModel(database.updateMemberTable());
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
