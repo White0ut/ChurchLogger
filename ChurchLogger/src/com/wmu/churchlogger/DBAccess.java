@@ -463,7 +463,7 @@ public class DBAccess {
 		// insert update code here
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("SELECT DISTINCT date FROM attendance");
+				.executeQuery("SELECT DISTINCT service_date FROM attendance");
 
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
