@@ -41,6 +41,9 @@ import java.awt.Rectangle;
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 
 public class ChurchLoggerWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -206,34 +209,53 @@ public class ChurchLoggerWindow extends JFrame{
 		button_1 = new JButton("");
 		button_1.setIcon(new ImageIcon(ChurchLoggerWindow.class.getResource("/res/minus.png")));
 		button_1.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		searchBox = new JTextField();
+		searchBox.setColumns(10);
+		
+		JButton btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				search();
+			}
+		});
 		GroupLayout gl_member_panel = new GroupLayout(member_panel);
 		gl_member_panel.setHorizontalGroup(
-			gl_member_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_member_panel.createSequentialGroup()
-					.addGap(6)
-					.addGroup(gl_member_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-						.addGroup(gl_member_panel.createSequentialGroup()
-							.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-							.addGap(13)))
-					.addGap(6))
+			gl_member_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_member_panel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(button, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(510, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 396, Short.MAX_VALUE)
+					.addComponent(searchBox, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
+					.addGap(12)
+					.addComponent(btnSearch)
+					.addContainerGap())
+				.addGroup(gl_member_panel.createSequentialGroup()
+					.addGap(6)
+					.addGroup(gl_member_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+						.addComponent(textArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE))
+					.addGap(6))
 		);
 		gl_member_panel.setVerticalGroup(
 			gl_member_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_member_panel.createSequentialGroup()
-					.addGap(12)
-					.addGroup(gl_member_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(button)
-						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap()
+					.addGroup(gl_member_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_member_panel.createSequentialGroup()
+							.addGroup(gl_member_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(button_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(button, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGap(8))
+						.addGroup(gl_member_panel.createSequentialGroup()
+							.addGroup(gl_member_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(searchBox, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSearch))
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-					.addGap(6)
 					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
 		);
 
@@ -245,6 +267,7 @@ public class ChurchLoggerWindow extends JFrame{
 
 		// Fills member table with every member and information
 		changeTableContents();
+		
 
 		scrollPane.setViewportView(table);
 		member_panel.setLayout(gl_member_panel);
@@ -359,6 +382,7 @@ public class ChurchLoggerWindow extends JFrame{
 	private JPanel verse_panel;
 	private JScrollPane scrollPane_2;
 	private JButton button_2;
+	private JTextField searchBox;
 	
 	public void memberIconClicked(){
 		System.out.println("Member icon clicked");
@@ -411,5 +435,10 @@ public class ChurchLoggerWindow extends JFrame{
 
 	public JFrame getFrame() {
 		return this;
+	}
+	
+	public void search(){
+		Searcher search = new Searcher();
+		table.setModel(search.findMemberFromTable(table, searchBox.getText()));
 	}
 }
