@@ -13,13 +13,12 @@ public class MainActivity extends FragmentActivity {
 	TabPagerAdapter tabAdapter;
 	ActionBar actionBar;
 	
-	public static DBAccess database;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		database = new DBAccess();
+		
 
 		tabAdapter = new TabPagerAdapter(getSupportFragmentManager());
 		mPager = (ViewPager) findViewById(R.id.pager);
@@ -61,7 +60,6 @@ public class MainActivity extends FragmentActivity {
 	protected void onPause() {
 		super.onPause();
 		
-		database.closeDBConnection();
 	}
 }
 

@@ -1,5 +1,6 @@
 package edu.wmich.cs;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -67,14 +68,14 @@ public class DBAccess {
 	 * @param mID Member ID for the church member.
 	 * @param date Date of the church service attended. Date format MM/DD/YYYY
 	 */
-	public void addAttendanceForMember(int mID, String date){
+	public void addAttendanceForMember(String fname,String lname, String date){
 		Statement st;
 		
 		try{
 			st = connection.createStatement();
 			
 			String tempDate = reformatDate(date);
-			String executeString = "INSERT INTO attendance (mID, service_date, cID) VALUES ('" + mID + "', '" + tempDate + "', '0')";
+			String executeString = "INSERT INTO attendance (mID, service_date, cID) VALUES ((SELECT mID FROM members WHERE fname = '"+fname+"' and lname = '"+lname+"'), '" + tempDate + "', '0')";
 			System.out.println(executeString);
 			st.execute(executeString);
 			st.close();
@@ -82,6 +83,46 @@ public class DBAccess {
 		catch(SQLException e){
 			System.out.println("SQL Exception: " + e);
 		}
+	}
+	
+	public String[] getMessages() {
+		Statement stmt;
+		String query = "SELECT message FROM church_message";
+		String[] res = new String[countMessages()];
+		try {
+		    stmt = connection.createStatement();
+		    ResultSet rs = stmt.executeQuery(query);
+		    
+		    int i = 0;
+		    while (rs.next()) {
+		        String msg = rs.getString("message");
+		        res[i] = msg;
+		        i++;
+		    }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {}
+		return res;
+	}
+	
+	public int countMessages() {
+		Statement stmt;
+		String query = "SELECT COUNT(message) FROM church_message";
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int count = rs.getInt(1);
+			
+			stmt.close();
+			return count;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return  0;
+		
 	}
 	
 	public void closeDBConnection() {

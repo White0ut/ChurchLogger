@@ -41,9 +41,9 @@ containing a value of this type.
     public static final class id {
         public static final int action_settings=0x7f08000a;
         public static final int communioned_check=0x7f080005;
-        public static final int editText1=0x7f080002;
         public static final int finish_button=0x7f080006;
         public static final int first_name_attend=0x7f080001;
+        public static final int first_name_input=0x7f080002;
         public static final int footerView=0x7f080007;
         public static final int last_name_attend=0x7f080004;
         public static final int last_name_input=0x7f080003;
