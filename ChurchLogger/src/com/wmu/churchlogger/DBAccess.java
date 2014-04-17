@@ -220,6 +220,37 @@ public class DBAccess {
 		}
 		return tableModel;
 	}
+	/**
+	 * Updates the member list for attendance selection.
+	 * @return
+	 * @throws SQLException
+	 */
+	public Object[][] updateMemberList() throws SQLException{
+		Object[][] retObject = new Object[50][3];
+		
+		//initialize result set object
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT fname, lname FROM members");
+		
+		//initialize metadata object
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		int r = 0, c;
+		
+		while(rs.next()){
+			for(c = 0; c < columnCount; c++){
+				try{
+				retObject[r][c] = rs.getString(c + 1);
+				}
+				catch(NullPointerException e){
+					retObject[r][c] = "Null";
+				}
+				retObject[r][c+1] = new Boolean(false);	//sets the default state for attendance check box
+			}
+			r++;
+		}
+		return retObject;
+	}
 	
 	/**
 	 * Creates the table model for the attendance list in the attendance tab.

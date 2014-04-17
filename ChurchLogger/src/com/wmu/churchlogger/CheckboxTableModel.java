@@ -1,5 +1,6 @@
 package com.wmu.churchlogger;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +8,20 @@ import javax.swing.table.AbstractTableModel;
 
 class CheckboxTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
+	private DBAccess database;
 	
 	private String[] columnNames = {"First Name","Last Name","Attended"};
-	private Object[][] data = 
-		{
-			{"Dillon", "Burton", new Boolean(false)},
-			{"Joe", "Cool", new Boolean(false)} 
-		};
+	private Object[][] data;
+	
+	public CheckboxTableModel(DBAccess database){
+		this.database = database;
+		
+		try {
+			data = database.updateMemberList();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public List<String> getSelectedNames(){
 		List<String> names = new ArrayList<String>();
@@ -41,7 +49,13 @@ class CheckboxTableModel extends AbstractTableModel {
 	}
 
 	public Class getColumnClass(int c) {
-		return getValueAt(0, c).getClass();
+		String s = "blahblahblah";
+		Boolean d = new Boolean(false);
+		
+		if(c < 2){
+			return s.getClass();
+		}else
+		return d.getClass();
 	}
 
 	public boolean isCellEditable(int row, int col) {
