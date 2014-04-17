@@ -102,7 +102,7 @@ public class AttendanceTableWindow extends JFrame{
 						.addContainerGap())
 				);
 
-		model = new CheckboxTableModel();
+		model = new CheckboxTableModel(database);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 		getContentPane().setLayout(groupLayout);
