@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -226,7 +228,8 @@ public class DBAccess {
 	 * @throws SQLException
 	 */
 	public Object[][] updateMemberList() throws SQLException{
-		Object[][] retObject = new Object[50][3];
+		//Object[][] retObject = new Object[][];
+		List<Object[]> complicatedObject = new ArrayList<Object[]>();	
 		
 		//initialize result set object
 		Statement stmt = connection.createStatement();
@@ -235,20 +238,34 @@ public class DBAccess {
 		//initialize metadata object
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
-		int r = 0, c;
+		int r = 0, c = 0;
+		Object[] intermediateObj = new Object[3];
 		
 		while(rs.next()){
 			for(c = 0; c < columnCount; c++){
 				try{
-				retObject[r][c] = rs.getString(c + 1);
+					 intermediateObj[c]= rs.getString(c + 1);
 				}
 				catch(NullPointerException e){
-					retObject[r][c] = "Null";
+					intermediateObj[c] = "Null";
 				}
-				retObject[r][c+1] = new Boolean(false);	//sets the default state for attendance check box
+				intermediateObj[c+1] = new Boolean(false);	//sets the default state for attendance check box
 			}
+			complicatedObject.add(new Object[] {intermediateObj[0], intermediateObj[1], intermediateObj[2]});
 			r++;
+		}	
+
+		int newr = r;
+		int newc = 3;
+		
+		Object[][] retObject = new Object[newr][newc];
+		
+		for(r = 0; r < newr; r++){
+			for(c = 0; c < newc; c++){
+				retObject[r][c] = complicatedObject.get(r)[c];
+			}
 		}
+		
 		return retObject;
 	}
 	
@@ -362,12 +379,46 @@ public class DBAccess {
 		try{
 			st = connection.createStatement();
 			
-			st.execute("INSERT INTO attendance (mID, date, cID) VALUES (" + mID + ", " + date + ", 0)");
+			String tempDate = ProgramManager.reformatDate(date);
+			String executeString = "INSERT INTO attendance (mID, service_date, cID) VALUES ('" + mID + "', '" + tempDate + "', '0')";
+			System.out.println(executeString);
+			st.execute(executeString);
 			st.close();
 		}
 		catch(SQLException e){
 			System.out.println("SQL Exception: " + e);
 		}
+	}
+	
+	/**
+	 * Finds a member ID from a first name and last name.
+	 * @param fname
+	 * @param lname
+	 * @return
+	 * @throws SQLException 
+	 */
+	public int findMemberByName(String fname, String lname) throws SQLException{
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT mID FROM members WHERE fname = '" + fname + "' AND lname = '" + lname + "'");
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		
+		String[] recordString = new String[1];
+		int i;
+		
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				try{
+				recordString[i] = rs.getString(i + 1);
+				}
+				catch(NullPointerException e){
+					recordString[i] = "Null";
+				}
+			}
+		}
+		Integer retVal = new Integer(0);
+		return retVal.valueOf(recordString[0]).intValue();
 	}
 	
 	public void closeDBConnection() {

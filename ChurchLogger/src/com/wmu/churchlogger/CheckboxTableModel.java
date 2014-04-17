@@ -23,13 +23,21 @@ class CheckboxTableModel extends AbstractTableModel {
 		}
 	}
 	
-	public List<String> getSelectedNames(){
-		List<String> names = new ArrayList<String>();
+	public List<Integer> getSelected(){
+		List<Integer> mIDs = new ArrayList<Integer>();
+		int tempID = 0;
+		
 		for(int i = 0; i < data.length; i++){
-			if((Boolean)data[2][i] == true){
-				names.add(data[0][i] + " " + data[1][i]);
+			if((Boolean)data[i][2] == true){
+				try {
+					tempID = database.findMemberByName((String)data[i][0], (String)data[i][1]);
+					mIDs.add(new Integer(tempID));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
 			}
-		}return names;
+		}return mIDs;
 	}
 
 	public int getColumnCount() {
