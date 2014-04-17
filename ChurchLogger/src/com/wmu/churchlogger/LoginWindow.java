@@ -33,13 +33,14 @@ public class LoginWindow extends JFrame{
 	private JCheckBox chckbxRememberMe;
 
 	private boolean isRemembered;
-
+	private DBAccess database;
 
 	/**
 	 * Create the application.
 	 * @wbp.parser.entryPoint
 	 */
 	public LoginWindow() {
+		database = new DBAccess();
 		initialize();
 	}
 
@@ -185,7 +186,7 @@ public class LoginWindow extends JFrame{
 
 	public void launchNewUserWindow() {
 		ProgramManager.closeWindow(this);
-		ProgramManager.openWindow(new NewUserWindow());
+		ProgramManager.openWindow(new NewUserWindow(database));
 	}
 
 	public JFrame getFrame() {
@@ -195,13 +196,12 @@ public class LoginWindow extends JFrame{
 	public void checkForUser(){
 		String username = usernameField.getText();
 		String password = passwordField.getText();
-		if(username.equals("admin")){
-			if(password.equals("password")){
-				ProgramManager.closeWindow(this);
-				ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
-				return;
-			}
-		}
-		errorField.setText("Incorret login credentials");
+		
+		database.compareUPass(username, password);
+		database.closeDBConnection();
+		ProgramManager.closeWindow(this);
+		ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
+		return;
+		
 	}
 }
