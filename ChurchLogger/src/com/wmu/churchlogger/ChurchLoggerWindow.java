@@ -306,6 +306,9 @@ public class ChurchLoggerWindow extends JFrame{
 					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
 					.addContainerGap())
 		);
+		
+		attendance_table = new JTable();
+		scrollPane_1.setViewportView(attendance_table);
 		attendance_panel.setLayout(gl_attendance_panel);
 		program_panel.setLayout(new BoxLayout(program_panel, BoxLayout.X_AXIS));
 		program_panel.add(navigation_panel);
@@ -383,6 +386,7 @@ public class ChurchLoggerWindow extends JFrame{
 	private JScrollPane scrollPane_2;
 	private JButton button_2;
 	private JTextField searchBox;
+	private JTable attendance_table;
 	
 	public void memberIconClicked(){
 		System.out.println("Member icon clicked");

@@ -3,6 +3,7 @@ package com.wmu.churchlogger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -16,8 +17,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
@@ -172,10 +174,113 @@ public class DBAccess {
 	 */
 	private void fillDatabase() throws SQLException {
 		System.out.println("About to add Addison.");
-		addMember("Addison", "Webb", 0, "(269) 615-5084", "addison.f.webb@gmail.com", "2014-04-08", "1991-11-28", "NA", "8380 Copper Harbor St.", "Kalamazoo", "MI", 49009);
-		addMember("Kendrick", "AWSguy", 0, "(207) 798-0903", "kendrick.cline@wmich.edu", "2014-04-08", "1992-1-1", "Cool guy", "1234 Road St.", "Kalamazoo", "MI", 49009);
-		addMember("Dillon", "Toughguy", 0, "(517) 974-3360", "dillon.burton@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "5678 Another St.", "Kalamazoo", "MI", 49009);
-		addMember("Josh", "MYSQLguy", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
+//		addMember("Addison", "Webb", 0, "(269) 615-5084", "addison.f.webb@gmail.com", "2014-04-08", "1991-11-28", "NA", "8380 Copper Harbor St.", "Kalamazoo", "MI", 49009);
+//		addMember("Kendrick", "AWSguy", 0, "(207) 798-0903", "kendrick.cline@wmich.edu", "2014-04-08", "1992-1-1", "Cool guy", "1234 Road St.", "Kalamazoo", "MI", 49009);
+//		addMember("Dillon", "Toughguy", 0, "(517) 974-3360", "dillon.burton@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "5678 Another St.", "Kalamazoo", "MI", 49009);
+//		addMember("Josh", "MYSQLguy", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
+//		addMember("Jim", "Joe", 0, "(269) 615-5084", "supguys@gmail.com", "2014-04-08", "1991-11-28", "NA", "8380 Copper Harbor St.", "Kalamazoo", "MI", 49009);
+//		addMember("Ken", "Cool", 0, "(207) 798-0903", "hello@wmich.edu", "2014-04-08", "1992-1-1", "Cool guy", "1234 Road St.", "Kalamazoo", "MI", 49009);
+//		addMember("Don", "Do", 0, "(517) 974-3360", "dillon.burton@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "5678 Another St.", "Kalamazoo", "MI", 49009);
+//		addMember("John", "Smith", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
+		
+		int amount = 150, count;
+		String[] firstNames = new String[amount];
+		String[] lastNames = new String[amount];
+		String[] emails = new String[amount];
+		String[] joinDates = new String[amount];
+		String[] birthDates = new String[amount];
+		String[] cities = new String[amount];
+		String[] zipcodes = new String[amount];
+		String[] phone = new String[amount];
+		
+		String[] add = new String[amount];
+		
+		
+		Scanner input = null;
+		try {input = new Scanner(new FileReader("names.txt"));
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		count = 0;
+		while(count < amount){
+			String[] names = input.nextLine().split("\t ");
+			System.out.println(names[0]);
+			firstNames[count] = names[0];
+			lastNames[count] = names[1];
+			count++;
+		}
+		
+		input.close();
+		
+		try {input = new Scanner(new FileReader("emails.txt"));
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		count = 0;
+		while(count < amount){
+			String email = input.nextLine();
+			int r = 0 + (int)(Math.random() * ((3 - 0) + 1));
+			if(r == 0){
+				emails[count] = email + "@gmail.com";
+			}else if(r == 1){
+				emails[count] = email + "@yahoo.com";
+			}else if(r == 2){
+				emails[count] = email + "@outlook.com";
+			}else{
+				emails[count] = email + "@webmail.com";
+			}
+			count++;
+		}
+		
+		input.close();
+		
+		try {input = new Scanner(new FileReader("join.txt"));
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		count = 0;
+		while(count < amount){
+			String join = input.nextLine();
+			joinDates[count] = join;
+			count++;
+		}
+		
+		input.close();
+		
+		try {input = new Scanner(new FileReader("birth.txt"));
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		count = 0;
+		while(count < amount){
+			String birth = input.nextLine();
+			birthDates[count] = birth;
+			count++;
+		}
+		
+		input.close();
+		
+		count = 0;
+		while(count < amount){
+			int r = 0 + (int)(Math.random() * ((1 - 0) + 1));
+			if(r == 0){
+				cities[count] = "Portage";
+				zipcodes[count] = "49024";
+			}else{
+				zipcodes[count] = "49008";
+				cities[count] = "Kalamazoo";
+			}
+			String phoneString = "(269) ";
+			for(int index = 0; index < 7; index++){
+				int n = 0 + (int)(Math.random() * ((9 - 0) + 1));
+				phoneString += n;
+				if(index == 2){
+					phoneString += "-";
+				}
+			}
+			phone[count] = phoneString;
+			add[count] = "nothing now";
+			count++;
+		}
+		
+		count = 0;
+		while(count < amount){
+			addMember(firstNames[count], lastNames[count], 0, phone[count], emails[count], joinDates[count], birthDates[count], "Note", add[count], cities[count], "MI", Integer.parseInt(zipcodes[count]));
+		count++;
+		}
+		
 	}
 	
 	
