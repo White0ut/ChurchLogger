@@ -66,5 +66,8 @@ CREATE TABLE attendance (
 
 CREATE TABLE church_message (
 	cID				int,
-	message 		varchar(140)
+	message 		varchar(300)
 );
+
+INSERT INTO church_message (cID, message)
+VALUES(0, "This Sunday there will be additional Easter services at 1:00pm and 4:00pm");
