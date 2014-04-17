@@ -12,11 +12,13 @@ public class MainActivity extends FragmentActivity {
 	ViewPager mPager;
 	TabPagerAdapter tabAdapter;
 	ActionBar actionBar;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 
 		tabAdapter = new TabPagerAdapter(getSupportFragmentManager());
 		mPager = (ViewPager) findViewById(R.id.pager);
@@ -51,6 +53,12 @@ public class MainActivity extends FragmentActivity {
 		actionBar.addTab(actionBar.newTab().setText("Church Messages").setTabListener(tabListener));
 		actionBar.addTab(actionBar.newTab().setText("Log Attendance").setTabListener(tabListener));
 		
+		
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
 		
 	}
 }

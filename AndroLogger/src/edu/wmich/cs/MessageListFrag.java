@@ -10,9 +10,8 @@ import android.widget.ListView;
 
 public class MessageListFrag extends ListFragment  
 {  
-	  
-	  String[] numbers_text = new String[] { "Hear ye Hear ye, this is a test for the churches yo motha", 
-	  "We need a fucking battery pack, my mic is dieing left and RIGHT!"};
+	  String[] test = new String[] {"Bible study moved back an hour this week", "Palm Sunday server begins at 1:00PM", 
+			  "Feel free to bring a friend or two this week for Palm Sunday!"};
 
 	  ArrayAdapter<String> adapter;
 	  
@@ -26,8 +25,12 @@ public class MessageListFrag extends ListFragment
 	    Bundle savedInstanceState) {  
 		  adapter = new ArrayAdapter<String>(  
 	     inflater.getContext(), android.R.layout.simple_list_item_1,  
-	     numbers_text);  
+	     test);  
 	   setListAdapter(adapter);  
 	   return super.onCreateView(inflater, container, savedInstanceState);  
 	  }  
+	  
+	  
+	  
+	  
 	 } 

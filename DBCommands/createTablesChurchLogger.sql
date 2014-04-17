@@ -52,7 +52,7 @@ CREATE TABLE church_address (
 # Account information for churches. 
 CREATE TABLE church_user (
 	user 		varchar(20),
-	password	varchar(15),
+	password	varchar(150),
 	cID			int,
 	sub_date	date
 );

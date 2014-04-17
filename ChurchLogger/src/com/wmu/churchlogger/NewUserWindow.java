@@ -33,11 +33,14 @@ public class NewUserWindow extends JFrame{
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
+	
+	DBAccess database;
 
 	/**
 	 * Create the application.
 	 */
-	public NewUserWindow() {
+	public NewUserWindow(DBAccess dat) {
+		database = dat;
 		initialize();
 	}
 
@@ -214,7 +217,12 @@ public class NewUserWindow extends JFrame{
 	}
 
 	public void checkAccountInfo(){
-		ProgramManager.closeWindow(this);
-		ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
+		String uname = textField.getText();
+		if(passwordField.getText().equals(passwordField_1.getText())) {
+			database.addChurchUser(uname, passwordField.getText());
+			database.closeDBConnection();
+			ProgramManager.closeWindow(this);
+			ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
+		}
 	}
 }
