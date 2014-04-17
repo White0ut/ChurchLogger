@@ -173,16 +173,6 @@ public class DBAccess {
 	 * @throws SQLException
 	 */
 	private void fillDatabase() throws SQLException {
-		System.out.println("About to add Addison.");
-//		addMember("Addison", "Webb", 0, "(269) 615-5084", "addison.f.webb@gmail.com", "2014-04-08", "1991-11-28", "NA", "8380 Copper Harbor St.", "Kalamazoo", "MI", 49009);
-//		addMember("Kendrick", "AWSguy", 0, "(207) 798-0903", "kendrick.cline@wmich.edu", "2014-04-08", "1992-1-1", "Cool guy", "1234 Road St.", "Kalamazoo", "MI", 49009);
-//		addMember("Dillon", "Toughguy", 0, "(517) 974-3360", "dillon.burton@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "5678 Another St.", "Kalamazoo", "MI", 49009);
-//		addMember("Josh", "MYSQLguy", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
-//		addMember("Jim", "Joe", 0, "(269) 615-5084", "supguys@gmail.com", "2014-04-08", "1991-11-28", "NA", "8380 Copper Harbor St.", "Kalamazoo", "MI", 49009);
-//		addMember("Ken", "Cool", 0, "(207) 798-0903", "hello@wmich.edu", "2014-04-08", "1992-1-1", "Cool guy", "1234 Road St.", "Kalamazoo", "MI", 49009);
-//		addMember("Don", "Do", 0, "(517) 974-3360", "dillon.burton@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "5678 Another St.", "Kalamazoo", "MI", 49009);
-//		addMember("John", "Smith", 0, "(989) 430-6826", "josh.dkyourlastname@wmich.com", "2014-04-08", "1991-1-1", "Cool guy", "9012 Long Rd.", "Kalamazoo", "MI", 49009);
-		
 		int amount = 150, count;
 		String[] firstNames = new String[amount];
 		String[] lastNames = new String[amount];
@@ -280,6 +270,7 @@ public class DBAccess {
 			addMember(firstNames[count], lastNames[count], 0, phone[count], emails[count], joinDates[count], birthDates[count], "Note", add[count], cities[count], "MI", Integer.parseInt(zipcodes[count]));
 		count++;
 		}
+		addAttendanceForMember(0, "4/13/2014");
 		
 	}
 	
@@ -384,7 +375,7 @@ public class DBAccess {
 		
 		//insert update code here
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT DISTINCT date FROM attendance");
+		ResultSet rs = stmt.executeQuery("SELECT DISTINCT service_date FROM attendance");
 		
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();

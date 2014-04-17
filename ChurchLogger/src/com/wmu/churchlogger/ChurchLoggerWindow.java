@@ -52,13 +52,14 @@ public class ChurchLoggerWindow extends JFrame{
 	private JLabel selected_label;
 	private JPanel card_panel, navigation_panel, member_panel, program_panel;
 	private CardLayout cardLayout;
-	private JTable table;
+	private static JTable table;
 
-	private DBAccess database;
+	private static DBAccess database;
 	private JPanel attendance_panel;
 	private JButton btnAddRecord;
 	private JScrollPane scrollPane_1;
 	private JButton button_1;
+	private static JTable attendance_table;
 
 
 	/**
@@ -372,14 +373,26 @@ public class ChurchLoggerWindow extends JFrame{
 		menuBar.add(mnHelp);
 	}
 
-	public void changeTableContents(){
+	public static void changeTableContents(){
 		try {
 			table.setModel(database.updateMemberTable());
+			
+			database.updateAttendanceTable();
+			//attendance_table.setModel(database.updateAttendanceTable());
+
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		this.revalidate();
+	}
+	
+	public static void changeAttendanceList(){
+		try {
+			attendance_table.setModel(database.updateAttendanceTable());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String prevNoTab = "";
@@ -387,7 +400,7 @@ public class ChurchLoggerWindow extends JFrame{
 	private JScrollPane scrollPane_2;
 	private JButton button_2;
 	private JTextField searchBox;
-	private JTable attendance_table;
+	
 	
 	public void memberIconClicked(){
 		System.out.println("Member icon clicked");
@@ -400,6 +413,7 @@ public class ChurchLoggerWindow extends JFrame{
 
 	public void attendanceIconClicked(){
 		System.out.println("Attendance Icon Clicked");
+		changeAttendanceList();
 		resetLabels(attendance_icon, "attendance.png", "attendance_tab.png");
 		cardLayout.show(card_panel, "attendance_panel");
 

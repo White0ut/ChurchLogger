@@ -365,12 +365,7 @@ public class AddMemberWindow extends JFrame{
 				emailField.getText(), joinDate, birthDate, notesTextArea.getText(), 
 				addressField.getText(), cityField.getText(), stateField.getText(), Integer.parseInt(zipField.getText()));
 		
-		//updates the default table model for the member list
-		try {
-			database.updateMemberTable();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		ChurchLoggerWindow.changeTableContents();
 		
 		ProgramManager.closeWindow(this);
 	}

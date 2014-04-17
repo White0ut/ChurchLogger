@@ -119,6 +119,7 @@ public class AttendanceTableWindow extends JFrame{
 		}
 			
 			ProgramManager.closeWindow(getFrame());
+			ChurchLoggerWindow.changeAttendanceList();
 	}
 
 	public JFrame getFrame() {
