@@ -484,12 +484,46 @@ public class DBAccess {
 		try{
 			st = connection.createStatement();
 			
-			st.execute("INSERT INTO attendance (mID, date, cID) VALUES (" + mID + ", " + date + ", 0)");
+			String tempDate = ProgramManager.reformatDate(date);
+			String executeString = "INSERT INTO attendance (mID, service_date, cID) VALUES ('" + mID + "', '" + tempDate + "', '0')";
+			System.out.println(executeString);
+			st.execute(executeString);
 			st.close();
 		}
 		catch(SQLException e){
 			System.out.println("SQL Exception: " + e);
 		}
+	}
+	
+	/**
+	 * Finds a member ID from a first name and last name.
+	 * @param fname
+	 * @param lname
+	 * @return
+	 * @throws SQLException 
+	 */
+	public int findMemberByName(String fname, String lname) throws SQLException{
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT mID FROM members WHERE fname = '" + fname + "' AND lname = '" + lname + "'");
+		
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		
+		String[] recordString = new String[1];
+		int i;
+		
+		while(rs.next()){
+			for(i = 0; i < columnCount; i++){
+				try{
+				recordString[i] = rs.getString(i + 1);
+				}
+				catch(NullPointerException e){
+					recordString[i] = "Null";
+				}
+			}
+		}
+		Integer retVal = new Integer(0);
+		return retVal.valueOf(recordString[0]).intValue();
 	}
 	
 	public void closeDBConnection() {
