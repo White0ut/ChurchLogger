@@ -38,6 +38,9 @@ import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.Rectangle;
+import java.awt.TextArea;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class ChurchLoggerWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -284,6 +287,48 @@ public class ChurchLoggerWindow extends JFrame{
 		program_panel.setLayout(new BoxLayout(program_panel, BoxLayout.X_AXIS));
 		program_panel.add(navigation_panel);
 		program_panel.add(card_panel);
+		
+		
+ 		verse_panel = new JPanel();
+ 		verse_panel.setBackground(new Color(119, 136, 153));
+ 		card_panel.add(verse_panel, "verse_panel");
+ 		
+ 		scrollPane_2 = new JScrollPane();
+ 		scrollPane_2.setBackground(Color.BLACK);
+ 		
+ 		button_2 = new JButton("Add Record");
+ 		button_2.setFont(new Font("Dialog", Font.BOLD, 14));
+		GroupLayout gl_verse_panel = new GroupLayout(verse_panel);
+ 		gl_verse_panel.setHorizontalGroup(
+ 			gl_verse_panel.createParallelGroup(Alignment.LEADING)
+ 				.addGap(0, 619, Short.MAX_VALUE)
+ 				.addGroup(gl_verse_panel.createSequentialGroup()
+ 					.addGap(6)
+ 					.addGroup(gl_verse_panel.createParallelGroup(Alignment.LEADING)
+ 						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+ 						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+ 					.addContainerGap())
+ 		);
+		gl_verse_panel.setVerticalGroup(
+ 			gl_verse_panel.createParallelGroup(Alignment.LEADING)
+ 				.addGap(0, 484, Short.MAX_VALUE)
+ 				.addGroup(gl_verse_panel.createSequentialGroup()
+ 					.addGap(6)
+ 					.addComponent(button_2)
+ 					.addPreferredGap(ComponentPlacement.RELATED)
+ 					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+					.addContainerGap())
+ 		);
+ 		
+ 		JTextArea verse_area = new JTextArea();
+ 		scrollPane_2.setViewportView(verse_area);
+ 		
+ 		/* Building the verse string for text area */
+ 		FileManager manager = new FileManager();
+ 		//String stuff = manager.readFileLineByLine("kjvdat.txt");
+ 		//verse_area.setText(stuff);
+ 		
+ 		verse_panel.setLayout(gl_verse_panel);
 
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -311,6 +356,9 @@ public class ChurchLoggerWindow extends JFrame{
 	}
 
 	public String prevNoTab = "";
+	private JPanel verse_panel;
+	private JScrollPane scrollPane_2;
+	private JButton button_2;
 	
 	public void memberIconClicked(){
 		System.out.println("Member icon clicked");
@@ -336,6 +384,7 @@ public class ChurchLoggerWindow extends JFrame{
 	public void bibleIconClicked(){
 		System.out.println("Bible icon clicked");
 		resetLabels(bible_label, "bible.png", "bible_tab.png");
+		cardLayout.show(card_panel, "verse_panel");
 	}
 
 	public void resetLabels(JLabel new_selected_label, String noTab, String tab){
