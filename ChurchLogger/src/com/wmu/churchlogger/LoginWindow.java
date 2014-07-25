@@ -196,12 +196,16 @@ public class LoginWindow extends JFrame{
 	public void checkForUser(){
 		String username = usernameField.getText();
 		String password = passwordField.getText();
-		
+		//if(username.equals("admin")){
 		database.compareUPass(username, password);
 		database.closeDBConnection();
 		ProgramManager.closeWindow(this);
 		ProgramManager.openWindow(new ChurchLoggerWindow(new DBAccess()));
-		return;
+		//}else {
+			//errorField.setText("Wrong Username/Passwd");
+			return;
+		//}
+		//return;
 		
 	}
 }

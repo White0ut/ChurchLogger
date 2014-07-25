@@ -62,9 +62,9 @@ public class DBAccess {
 
 		// build the database!!
 		
-		  try { this.buildDatabaseSchema(); } catch (SQLException e) {
+		 /* try { this.buildDatabaseSchema(); } catch (SQLException e) {
 		  e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); }
-		 
+		 */
 	}
 
 	/**
@@ -128,6 +128,8 @@ public class DBAccess {
 		return bytes;
 	}
 
+	
+	
 	public void addChurchUser(String username, String password) {
 		MessageDigest digest;
 		byte[] hashedBytes = null;
@@ -459,6 +461,53 @@ public class DBAccess {
 
 		return retObject;
 	}
+	
+	public Object[][] getDateTable(String date) throws SQLException {
+		List<Object[]> complicatedObject = new ArrayList<Object[]>();
+
+		// initialize result set object
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT fname, lname FROM members NATURAL JOIN attendance where service_date = '"+date+"'");
+
+		// initialize metadata object
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		int r = 0, c = 0;
+		Object[] intermediateObj = new Object[3];
+
+		while (rs.next()) {
+			for (c = 0; c < columnCount; c++) {
+				try {
+					intermediateObj[c] = rs.getString(c + 1);
+				} catch (NullPointerException e) {
+					intermediateObj[c] = "Null";
+				}
+				intermediateObj[c + 1] = new Boolean(false); // sets the default
+																// state for
+																// attendance
+																// check box
+			}
+			complicatedObject.add(new Object[] { intermediateObj[0],
+					intermediateObj[1], intermediateObj[2] });
+			r++;
+		}
+
+		int newr = r;
+		int newc = 3;
+
+		Object[][] retObject = new Object[newr][newc];
+
+		for (r = 0; r < newr; r++) {
+			for (c = 0; c < newc; c++) {
+				retObject[r][c] = complicatedObject.get(r)[c];
+				System.out.println(complicatedObject.get(r)[c]);
+			}
+		}
+
+		return retObject;
+	}
+	
+	
 
 	/**
 	 * Creates the table model for the attendance list in the attendance tab.

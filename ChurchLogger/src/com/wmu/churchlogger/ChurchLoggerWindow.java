@@ -37,10 +37,12 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Rectangle;
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.FileReader;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -288,23 +290,37 @@ public class ChurchLoggerWindow extends JFrame{
 		
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBackground(Color.BLACK);
+		
+		JButton btnSelectDate = new JButton("Select Date");
+		btnSelectDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectDate();
+			}
+		});
 		GroupLayout gl_attendance_panel = new GroupLayout(attendance_panel);
 		gl_attendance_panel.setHorizontalGroup(
 			gl_attendance_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_attendance_panel.createSequentialGroup()
 					.addGap(6)
 					.addGroup(gl_attendance_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-						.addComponent(btnAddRecord, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+						.addGroup(gl_attendance_panel.createSequentialGroup()
+							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_attendance_panel.createSequentialGroup()
+							.addComponent(btnAddRecord, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+							.addComponent(btnSelectDate)
+							.addGap(67))))
 		);
 		gl_attendance_panel.setVerticalGroup(
 			gl_attendance_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_attendance_panel.createSequentialGroup()
 					.addGap(6)
-					.addComponent(btnAddRecord)
+					.addGroup(gl_attendance_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAddRecord)
+						.addComponent(btnSelectDate))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
@@ -351,7 +367,7 @@ public class ChurchLoggerWindow extends JFrame{
  		scrollPane_2.setViewportView(verse_area);
  		
  		/* Building the verse string for text area */
- 		FileManager manager = new FileManager();
+ 		//FileManager manager = new FileManager();
  		//String stuff = manager.readFileLineByLine("kjvdat.txt");
  		//verse_area.setText(stuff);
  		
@@ -459,5 +475,19 @@ public class ChurchLoggerWindow extends JFrame{
 	public void search(){
 		Searcher search = new Searcher();
 		table.setModel(search.findMemberFromTable(table, searchBox.getText()));
+	}
+	
+	public void selectDate(){
+		String date = (String)attendance_table.getValueAt(attendance_table.getSelectedRow(), 0);
+		System.out.println(date);
+		Object[][] newModel = null;
+		try {
+			newModel = database.getDateTable(date);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ProgramManager.openWindow(new DateWindow(newModel));
+		
 	}
 }

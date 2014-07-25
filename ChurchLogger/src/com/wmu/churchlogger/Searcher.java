@@ -20,7 +20,7 @@ public class Searcher {
 					System.out.println("Found");
 					displayData.add(new Object[rowAmt]);
 					for(int newCol = 0; newCol < rowAmt; newCol++){
-						System.out.println("Added a thing");
+						//System.out.println("Added a thing");
 						displayData.get(displayData.size()-1)[newCol] = tableData[row][newCol];
 					}
 				}
