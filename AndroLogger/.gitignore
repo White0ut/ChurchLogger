@@ -1,0 +1,6 @@
+/edu
+/build
+/gen
+gradlew*
+local.properties
+project.properties
