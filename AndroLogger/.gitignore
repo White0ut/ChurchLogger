@@ -1,6 +1,14 @@
 /edu
 /build
 /gen
+
+.classpath
+.project
+AndroLogger.iml
+ic_launcher-web.png
+
 gradlew*
+
+.settings
 local.properties
 project.properties
