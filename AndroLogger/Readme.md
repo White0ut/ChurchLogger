@@ -1,4 +1,5 @@
-#AndroLogger
+AndroLogger
+===========
 
 ![Attendance](/screenshots/attendance.png)
 ![Messages](/screenshots/message-display.png)
